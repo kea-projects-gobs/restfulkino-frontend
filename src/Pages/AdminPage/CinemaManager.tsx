@@ -33,8 +33,25 @@ export function CinemaManager() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSelectedCinema(prev => ({ ...prev, [name]: value }));
-  };    
+    setSelectedCinema(prev => {
+      if (prev === null) {
+        // if null, create new cinema object with default values and the updated field to satisfy TS...
+        const newCinema : Cinema = {
+          name: '',
+          city: '',
+          street: '',
+          description: '',
+          phone: '',
+          email: '',
+          imageUrl: '',
+          [name]: value
+        };
+        return newCinema;
+      } else {
+        return { ...prev, [name]: value };
+      }
+    });
+  };  
 
   const openModal = (type: 'create' | 'edit' | 'delete', cinema?: Cinema) => {
     setModalType(type);

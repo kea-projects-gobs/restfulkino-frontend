@@ -40,12 +40,41 @@ export function HallManager() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSelectedHall(prev => ({ ...prev, [name]: value }));
+    setSelectedHall(prev => {
+      if (prev === null) {
+        // Define a new hall object with default values and the updated field
+        const newHall: Hall = {
+          name: '',
+          noOfRows: 0,
+          noOfColumns: 0,
+          imageUrl: '',
+          cinemaId: 0,
+          [name]: value
+        };
+        return newHall;
+      } else {
+        return { ...prev, [name]: value };
+      }
+    });
   };
 
   const handleCinemaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const cinemaId = e.target.value;
-    setSelectedHall(prev => ({ ...prev, cinemaId }));
+    const cinemaId = parseInt(e.target.value);
+    setSelectedHall(prev => {
+      if (prev === null) {
+        // Define a new hall object with default values and the updated cinemaId
+        const newHall: Hall = {
+          name: '',
+          noOfRows: 0,
+          noOfColumns: 0,
+          imageUrl: '',
+          cinemaId: cinemaId
+        };
+        return newHall;
+      } else {
+        return { ...prev, cinemaId };
+      }
+    });
   };
 
   const openModal = (type: 'create' | 'edit' | 'delete', hall?: Hall) => {

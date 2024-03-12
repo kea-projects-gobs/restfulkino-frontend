@@ -1,10 +1,10 @@
 export interface Hall {
     id?: number;
     name: string;
-    //cinemaId: number;
     noOfRows: number;
     noOfColumns: number;
     imageUrl?: string;
+    cinemaId?: number;
 }
 
 

@@ -3,7 +3,7 @@ import "./index.css";
 import FrontPage from "./Pages/FrontPage/FrontPage";
 import Layout from "./Layout";
 import CinemaPage from "./Pages/CinemaPage/CinemaPage";
-import AdminPage from "./Pages/AdminPage/AdminCinemaPage";
+import AdminPage from "./Pages/AdminPage/AdminPage";
 import CinemaDetailPage from "./Pages/CinemaPage/CinemaDetailPage";
 import MovieDetailPage from "./Pages/CinemaPage/MovieDetailPage";
 import { Route, Routes } from "react-router-dom";

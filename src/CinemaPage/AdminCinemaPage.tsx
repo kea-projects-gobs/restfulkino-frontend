@@ -54,21 +54,31 @@ export default function AdminCinemaPage() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCinema((prev) => ({
-      ...(prev
-        ? prev
-        : {
-            id: 0,
-            name: "",
-            city: "",
-            street: "",
-            description: "",
-            phone: "",
-            email: "",
-            imageUrl: "",
-          }),
-      [e.target.name]: e.target.value || "", // Fallback for undefined value
-    }));
+    const { name, value } = e.target;
+  
+    setSelectedCinema((prev) => {
+      // If the change is for a hall field, handle it differently (future implementation)
+      if (name.startsWith('hall')) {
+        // Placeholder for future hall handling logic
+        // Identify and update hall information
+        // This could involve having a more complex state structure or separate handlers for hall fields
+        return prev; // For now return prev state
+      }
+      return {
+        ...(prev || {
+          id: 0,
+          name: "",
+          city: "",
+          street: "",
+          description: "",
+          phone: "",
+          email: "",
+          imageUrl: "",
+          // halls: [], // Placeholder for future hall array
+        }),
+        [name]: value || "", // Fallback for undefined value
+      };
+    });
   };
 
   const handleDelete = async () => {

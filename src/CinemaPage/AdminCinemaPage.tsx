@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getCinemas, createCinema, updateCinema, deleteCinema } from "./CinemaUtils";
 import { Cinema } from "../interfaces/interfaces";
 import Modal from "../generic-components/Modal";
@@ -88,7 +89,11 @@ export default function AdminCinemaPage() {
       <ul className="mt-6">
         {cinemas.map((cinema) => (
           <li key={cinema.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
-            <span className="font-medium text-gray-800">{cinema.name}</span>
+            <span className="font-medium text-gray-800">
+              <Link to={`/cinemas/${cinema.id}`} className="hover:underline">
+                {cinema.name}
+              </Link>
+            </span>
             <div>
               <button onClick={() => openEditModal(cinema)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2">
                 Edit

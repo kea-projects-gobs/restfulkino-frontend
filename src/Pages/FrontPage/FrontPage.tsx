@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Movie } from '../interfaces/interfaces';
+import { Movie } from '../../interfaces/interfaces';
 import basiccinema from "../CinemaPage/testimgs/basiccinema.jpg"
 
 export default function TestFrontpage() {

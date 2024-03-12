@@ -1,11 +1,11 @@
 import "./index.css";
 //import Home from "./Home";
-import FrontPage from "./CinemaPage/FrontPage";
+import FrontPage from "./Pages/FrontPage/FrontPage";
 import Layout from "./Layout";
-import CinemaPage from "./CinemaPage/CinemaPage";
-import AdminCinemaPage from "./CinemaPage/AdminCinemaPage";
-import CinemaDetailPage from "./CinemaPage/CinemaDetailPage";
-import MovieDetailPage from "./CinemaPage/MovieDetailPage";
+import CinemaPage from "./Pages/CinemaPage/CinemaPage";
+import AdminPage from "./Pages/AdminPage/AdminCinemaPage";
+import CinemaDetailPage from "./Pages/CinemaPage/CinemaDetailPage";
+import MovieDetailPage from "./Pages/CinemaPage/MovieDetailPage";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path="/movies/:movieId" element={<MovieDetailPage />} />
         <Route path="/cinemas" element={<CinemaPage />} />
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
-        <Route path="/admincinemas" element={<AdminCinemaPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Layout>
   );

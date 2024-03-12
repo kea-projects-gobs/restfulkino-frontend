@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Cinema } from '../interfaces/interfaces';
+import { Cinema } from '../../interfaces/interfaces';
 
 
 const API_URL = 'http://localhost:8080/api/cinemas'

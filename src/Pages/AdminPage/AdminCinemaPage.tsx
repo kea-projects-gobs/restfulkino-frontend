@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getCinemas, createCinema, updateCinema, deleteCinema } from "./CinemaUtils";
-import { Cinema } from "../interfaces/interfaces";
-import Modal from "../generic-components/Modal";
-import InputField from "../generic-components/InputField";
+import { getCinemas, createCinema, updateCinema, deleteCinema } from "../CinemaPage/CinemaUtils";
+import { Cinema } from "../../interfaces/interfaces";
+import Modal from "../../generic-components/Modal";
+import InputField from "../../generic-components/InputField";
 
-export default function AdminCinemaPage() {
+export default function AdminPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -91,7 +91,7 @@ export default function AdminCinemaPage() {
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Admin Cinema Management</h1>
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">Admin Management</h1>
       <button onClick={openCreateModal} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Add new Cinema!
       </button>

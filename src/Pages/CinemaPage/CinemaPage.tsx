@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getCinemas } from './CinemaUtils';
-import { Cinema } from '../interfaces/interfaces';
+import { Cinema } from '../../interfaces/interfaces';
 import { Link } from 'react-router-dom';
 import basicCinemaImg from './testimgs/basiccinema.jpg'
 

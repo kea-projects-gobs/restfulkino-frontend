@@ -19,7 +19,7 @@ function App() {
         <Route path="/cinemas" element={<CinemaPage />} />
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/MoviePage" element={<MoviePage />} />
+        <Route path="/movies" element={<MoviePage />} />
         <Route path="/schedules/movies/:id" element={<SchedulePage />} />
       </Routes>
     </Layout>

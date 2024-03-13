@@ -6,7 +6,7 @@ type MovieDescriptionProps = {
 
 export default function MovieDescription({ movie }: MovieDescriptionProps) {
   return (
-    <div className="flex flex-row justify-center gap-2 mx-auto mt-10">
+    <div className="flex flex-row flex-wrap justify-center gap-2 mx-auto mt-10 lg:w-[600px] bg-gray-100 p-4 rounded">
       {/* <div className="flex-wrap justify-center"> */}
       <img className="w-[200px] rounded-xl" src={movie?.imageUrl} />
       <div className="mx-6 max-w-[300px]">

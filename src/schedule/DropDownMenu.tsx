@@ -17,16 +17,15 @@ export default function DropDownMenu({
   const [selectedCinema, setSelectedCinema] = useState<CinemaType>();
 
   const dropDownSelect = (item: CinemaType) => {
-    console.log(item);
     setSelectedCinema(item);
     handleCinemaSelect(item);
     setIsOpen(false);
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <button
-        className="w-[350px] h-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center justify-center"
+        className="h-10 w-full lg:w-[336px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center justify-center"
         type="button"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -52,8 +51,8 @@ export default function DropDownMenu({
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow top-12 w-[350px]  ">
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+        <div className="absolute right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow top-12 w-full lg:w-[336px]">
+          <ul className="py-2 text-sm text-gray-700">
             {cinemas.map((cinema: CinemaType) => (
               <DropDownItem
                 key={cinema.id}

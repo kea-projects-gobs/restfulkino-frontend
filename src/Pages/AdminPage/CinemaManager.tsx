@@ -110,7 +110,7 @@ export function CinemaManager() {
           </form>
         ) : (
           <div>
-            <p>Are you sure you want to delete the following?</p>
+            <p>Are you sure you want to delete the following cinema?</p>
             <h2>{selectedCinema?.name}</h2>
             <div className="flex justify-end items-center p-4 border-t border-gray-200">
               <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded mr-2">

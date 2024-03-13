@@ -16,7 +16,6 @@ export default function TestFrontpage() {
     <div className="container mx-auto px-4">
       <h1 className="text-4xl font-bold text-center my-8">Welcome to Restful Kino!</h1>
       <div className="hero h-96 bg-cover bg-center rounded-lg shadow-md" style={{ backgroundImage: `url(${basiccinema})` }}>
-        {/* Image is now set as a background, so no <img> tag is needed */}
       </div>
       <section>
         <h2 className="text-3xl font-semibold my-8">Now Playing</h2>

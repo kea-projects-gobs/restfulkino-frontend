@@ -20,7 +20,7 @@ function App() {
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/MoviePage" element={<MoviePage />} />
-        <Route path="/schedule/movie/:id" element={<SchedulePage />} />
+        <Route path="/schedules/movies/:id" element={<SchedulePage />} />
       </Routes>
     </Layout>
   );

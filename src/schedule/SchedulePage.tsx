@@ -30,7 +30,6 @@ export default function SchedulePage() {
   };
 
   const handleTimeSelect = (time: ScheduleType) => {
-    console.log("Selected time: ", time);
     setSelectedTime(time);
   };
 
@@ -78,9 +77,12 @@ export default function SchedulePage() {
             selectedTime={selectedTime}
           />
         </div>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
           {selectedTime && (
-            <button className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800">
+            <button
+              onClick={() => console.log("REDIRECT TO SEAT RESERVATION")}
+              className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
+            >
               Vælg sæde(r)
             </button>
           )}

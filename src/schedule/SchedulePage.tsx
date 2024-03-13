@@ -5,6 +5,11 @@ import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
 import { CinemaType, MovieType, ScheduleType } from "../types";
 import MovieDescription from "./MovieDescription";
+import {
+  getCinemas,
+  getMoviesById,
+  getSchedulesByDateAndMovieIdAndCinemaId,
+} from "../services/api";
 
 export default function SchedulePage() {
   const { id } = useParams();
@@ -30,15 +35,11 @@ export default function SchedulePage() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/movies/${id}`)
-      .then(res => res.json())
-      .then(data => setMovie(data));
+    getMoviesById(Number(id)).then(data => setMovie(data));
   }, [id]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/cinemas")
-      .then(res => res.json())
-      .then(data => setCinemas(data));
+    getCinemas().then(data => setCinemas(data));
   }, []);
 
   useEffect(() => {
@@ -48,11 +49,11 @@ export default function SchedulePage() {
     const day = String(selectedScheduleDate.getDate()).padStart(2, "0");
     const formattedDate = `${year}-${month}-${day}`;
     if (selectedCinema != null) {
-      fetch(
-        `http://localhost:8080/api/schedules/${formattedDate}/movies/${id}/cinemas/${selectedCinema?.id}`
-      )
-        .then(res => res.json())
-        .then(data => setSchedules(data));
+      getSchedulesByDateAndMovieIdAndCinemaId(
+        formattedDate,
+        Number(id),
+        selectedCinema.id
+      ).then(data => setSchedules(data));
     }
   }, [selectedCinema, selectedScheduleDate, id]);
 

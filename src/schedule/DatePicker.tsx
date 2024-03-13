@@ -16,8 +16,8 @@ export default function DatePicker({
     new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2),
     new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3),
     new Date(today.getFullYear(), today.getMonth(), today.getDate() + 4),
-    // new Date(date.getFullYear(), date.getMonth(), date.getDate() + 5),
-    // new Date(date.getFullYear(), date.getMonth(), date.getDate() + 6),
+    // new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5),
+    // new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6),
   ];
   return (
     <>

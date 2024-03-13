@@ -5,6 +5,7 @@ export interface Hall {
     noOfColumns: number;
     imageUrl?: string;
     cinemaId?: number;
+    // schedule?: Schedule[];
 }
 
 
@@ -18,8 +19,6 @@ export interface Cinema {
     email?: string;
     imageUrl?: string;
     halls?: Hall[];
-    //movies?: Movie[];
-    //schedules?: Schedule[];
 }
 
 export interface Movie {
@@ -30,8 +29,9 @@ export interface Movie {
     duration?: number;
     imageUrl?: string;
     language?: string;
-    genres: string;
+    genre: string;
     director?: string;
     cast?: string;
+    // schedule?: Schedule[];
 
 }

@@ -42,7 +42,7 @@ export function HallManager() {
     const { name, value } = e.target;
     setSelectedHall(prev => {
       if (prev === null) {
-        // Define a new hall object with default values and the updated field
+        // Define a new hall object with default values and the updated field to satisfy TS ....
         const newHall: Hall = {
           name: '',
           noOfRows: 0,
@@ -62,7 +62,7 @@ export function HallManager() {
     const cinemaId = parseInt(e.target.value);
     setSelectedHall(prev => {
       if (prev === null) {
-        // Define a new hall object with default values and the updated cinemaId
+        // Define a new hall object with default values and the updated cinemaId to satisy TS....
         const newHall: Hall = {
           name: '',
           noOfRows: 0,
@@ -117,18 +117,19 @@ export function HallManager() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}>
         {modalType !== 'delete' ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            <InputField name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Hall Name" required />
-            <InputField name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Number of Rows" />
-            <InputField name="noOfColumns" value={selectedHall?.noOfColumns ?? ""} onChange={handleInputChange} placeholder="Number of Columns" />
-            <InputField name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
+            <InputField label="Name" name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Hall Name" required />
+            <InputField label="Rows" name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Number of Rows" />
+            <InputField label="Columns" name="noOfColumns" value={selectedHall?.noOfColumns ?? ""} onChange={handleInputChange} placeholder="Number of Columns" />
+            <InputField label="Image URL" name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
             <div>
+              <label htmlFor="cinemaId" className="block text-sm font-medium text-gray-700">Cinema
               <select
                 id="cinemaId"
                 name="cinemaId"
                 value={selectedHall?.cinemaId ?? ""}
                 onChange={handleCinemaChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
+                >
                 <option value="">Select a Cinema</option>
                 {cinemas.map((cinema) => (
                   <option key={cinema.id} value={cinema.id}>
@@ -136,6 +137,7 @@ export function HallManager() {
                   </option>
                 ))}
               </select>
+                </label>
             </div>
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               {modalType === 'create' ? 'Create Hall' : 'Save Changes'}

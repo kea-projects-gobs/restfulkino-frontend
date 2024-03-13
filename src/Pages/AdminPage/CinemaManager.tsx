@@ -97,13 +97,13 @@ export function CinemaManager() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Cinema`}>
         {modalType !== 'delete' ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            <InputField name="name" value={selectedCinema?.name ?? ""} onChange={handleInputChange} placeholder="Cinema Name" required />
-            <InputField name="city" value={selectedCinema?.city ?? ""} onChange={handleInputChange} placeholder="City" required />
-            <InputField name="street" value={selectedCinema?.street ?? ""} onChange={handleInputChange} placeholder="Street" required />
-            <InputField name="description" value={selectedCinema?.description ?? ""} onChange={handleInputChange} placeholder="Description" />
-            <InputField name="phone" value={selectedCinema?.phone ?? ""} onChange={handleInputChange} placeholder="Phone" />
-            <InputField name="email" value={selectedCinema?.email ?? ""} onChange={handleInputChange} placeholder="Email" />
-            <InputField name="imageUrl" value={selectedCinema?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
+            <InputField label="Name" name="name" value={selectedCinema?.name ?? ""} onChange={handleInputChange} placeholder="Cinema Name" required />
+            <InputField label="City" name="city" value={selectedCinema?.city ?? ""} onChange={handleInputChange} placeholder="City" required />
+            <InputField label="Street" name="street" value={selectedCinema?.street ?? ""} onChange={handleInputChange} placeholder="Street" required />
+            <InputField label="Description" name="description" value={selectedCinema?.description ?? ""} onChange={handleInputChange} placeholder="Description" />
+            <InputField label="Phone" name="phone" value={selectedCinema?.phone ?? ""} onChange={handleInputChange} placeholder="Phone" />
+            <InputField label="Email" name="email" value={selectedCinema?.email ?? ""} onChange={handleInputChange} placeholder="Email" />
+            <InputField label="Image URL" name="imageUrl" value={selectedCinema?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               {modalType === 'create' ? 'Create Cinema' : 'Save Changes'}
             </button>

@@ -7,6 +7,7 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import CinemaDetailPage from "./Pages/CinemaPage/CinemaDetailPage";
 import MovieDetailPage from "./Pages/CinemaPage/MovieDetailPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
+import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/createuser" element={<CreateUserPage />} />
       </Routes>
     </Layout>
   );

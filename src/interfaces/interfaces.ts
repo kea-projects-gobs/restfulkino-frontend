@@ -25,13 +25,13 @@ export interface Cinema {
 export interface Movie {
     id?: number;
     title: string;
-    description?: string;
+    description: string;
+    releaseDate: string;
     duration?: number;
     imageUrl?: string;
-    //schedules: Schedule[];
-    languages?: string[];
-    genres?: string[];
-    directors?: string[];
-    cast?: string[];
+    language?: string;
+    genres: string;
+    director?: string;
+    cast?: string;
 
 }

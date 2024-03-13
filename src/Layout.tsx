@@ -5,8 +5,8 @@ type LayoutProps = {
 };
 export default function Layout({ children }: LayoutProps) {
   return (
-    <main className="w-full min-h-screen bg-slate-900">
-      <div className="mx-auto container min-w-[350px] px-2 lg:px-0 lg:max-w-[2000px] py-10">
+    <main className="w-full min-h-screen">
+      <div className="mx-auto container min-w-[350px] px-2 lg:px-0 lg:max-w-[990px] py-10">
         <Header />
         <div className="pt-4">{children}</div>
       </div>

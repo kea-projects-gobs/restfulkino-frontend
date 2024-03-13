@@ -5,9 +5,9 @@ import Layout from "./Layout";
 import CinemaPage from "./pages/CinemaPage/CinemaPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import CinemaDetailPage from "./pages/CinemaPage/CinemaDetailPage";
-import MovieDetailPage from "./pages/CinemaPage/MovieDetailPage";
+import MovieDetailPage from "./pages/MoviePage/MovieDetailPage.tsx";
 import { Route, Routes } from "react-router-dom";
-import MoviePage from "./pages/Moviepage.tsx";
+import MoviePage from "./pages/MoviePage/Moviepage.tsx";
 
 function App() {
   return (

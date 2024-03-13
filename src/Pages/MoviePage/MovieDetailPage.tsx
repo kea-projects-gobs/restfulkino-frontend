@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCinemas } from "./CinemaUtils"; // Assuming getCinemas fetches all cinemas
+import { getCinemas } from "../CinemaPage/CinemaUtils"; // Assuming getCinemas fetches all cinemas
 import { Cinema } from "../../interfaces/interfaces";
 
 export default function MovieDetailPage() {

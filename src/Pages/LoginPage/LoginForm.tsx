@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     //tilføj logik til at behandle login
-    console.log('Email:', email);
+    console.log('Username:', username);
     console.log('Password:', password);
   };
 
   return (
     <div>
       <InputField
-        label="Email"
+        label="Username"
         type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <InputField
         label="Password"

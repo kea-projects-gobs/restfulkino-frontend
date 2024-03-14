@@ -35,14 +35,15 @@ export interface Movie {
     // schedule?: Schedule[];
 }
 
-export interface ScheduleType {
-    id: number;
+export interface Schedule {
+    id?: number;
     startTime: string;
-    endTime: string;
-    date: string | Date;
+    endTime?: string;
+    date: string;
     movieTitle: string;
     hallName: string;
     cinemaName: string;
     is3d: boolean;
-    isLongMovie: boolean;
+    isLongMovie?: boolean;
   }
+

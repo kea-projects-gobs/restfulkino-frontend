@@ -5,15 +5,14 @@ import { getMovies } from "../moviepage/MovieUtils";
 import { getCinemas } from "../cinemapage/CinemaUtils";
 import Modal from "../../generic-components/Modal";
 import InputField from "../../generic-components/InputField";
-import { ScheduleType } from "../../types";
-import { Movie, Cinema, Hall } from "../../interfaces/interfaces";
+import { Movie, Cinema, Hall, Schedule } from "../../interfaces/interfaces";
 
 export function ScheduleManager() {
-  const [schedule, setSchedule] = useState<ScheduleType[]>([]);
+  const [schedule, setSchedule] = useState<Schedule[]>([]);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [halls, setHalls] = useState<Hall[]>([]);
-  const [selectedSchedule, setSelectedSchedule] = useState<ScheduleType | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
   const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
   const [selectedCinemaId, setSelectedCinemaId] = useState<number | null>(null);
   const [selectedHallId, setSelectedHallId] = useState<number | null>(null);
@@ -58,23 +57,23 @@ export function ScheduleManager() {
     setHalls(halls.data);
   };
 
-  const openModal = async (type: "create" | "edit" | "delete", schedule?: ScheduleType) => {
+  const openModal = async (type: "create" | "edit" | "delete", schedule?: Schedule) => {
     setModalType(type);
     setIsModalOpen(true);
 
     if (type === "edit" && schedule) {
       setSelectedSchedule(schedule);
       // Find and set the movie ID
-      const movieId = movies.find((movie) => movie.title === schedule.movieTitle)?.id;
+      const movieId = movies.find((movie) => movie.title === schedule.movieTitle)?.id ?? null;
       setSelectedMovieId(movieId);
       // Find and set the cinema ID
-      const cinemaId = cinemas.find((cinema) => cinema.name === schedule.cinemaName)?.id;
+      const cinemaId = cinemas.find((cinema) => cinema.name === schedule.cinemaName)?.id ?? null;
       setSelectedCinemaId(cinemaId);
       if (cinemaId) {
         // Fetch halls for the selected cinema
         await fetchHalls(cinemaId);
         // Then, find and set the hall ID
-        const hallId = halls.find((hall) => hall.name === schedule.hallName)?.id;
+        const hallId = halls.find((hall) => hall.name === schedule.hallName)?.id ?? null;
         setSelectedHallId(hallId);
       }
     } else if (type === "create") {
@@ -101,10 +100,14 @@ export function ScheduleManager() {
     const selectedMovie = movies.find((movie) => movie.id === movieId);
     if (selectedMovie) {
       // Update the selectedSchedule with the movie's name
-      setSelectedSchedule((prev) => ({
-        ...prev,
-        movieTitle: selectedMovie.title,
-      }));
+      setSelectedSchedule((prev) =>
+        prev
+          ? {
+              ...prev,
+              movieTitle: selectedMovie.title,
+            }
+          : null
+      );
     }
   };
 
@@ -115,10 +118,14 @@ export function ScheduleManager() {
     const selectedCinema = cinemas.find((cinema) => cinema.id === cinemaId);
     if (selectedCinema) {
       // Update the selectedSchedule with the cinema's name
-      setSelectedSchedule((prevSchedule) => ({
-        ...prevSchedule,
-        cinemaName: selectedCinema.name,
-      }));
+      setSelectedSchedule((prevSchedule) =>
+        prevSchedule
+          ? {
+              ...prevSchedule,
+              cinemaName: selectedCinema.name,
+            }
+          : null
+      );
     }
     // Fetch halls based on selected cinema
     fetchHalls(cinemaId);
@@ -131,10 +138,14 @@ export function ScheduleManager() {
     const selectedHall = halls.find((hall) => hall.id === hallId);
     if (selectedHall) {
       // Update the selectedSchedule with the hall's name
-      setSelectedSchedule((prevSchedule) => ({
-        ...prevSchedule,
-        hallName: selectedHall.name,
-      }));
+      setSelectedSchedule((prevSchedule) =>
+        prevSchedule
+          ? {
+              ...prevSchedule,
+              hallName: selectedHall.name,
+            }
+          : null
+      );
     }
   };
 
@@ -149,10 +160,10 @@ export function ScheduleManager() {
     try {
       // Determine whether to create or update the schedule based on modalType
       if (modalType === "edit" && selectedSchedule.id) {
-        // Call the update API function directly with selectedSchedule
+        // Call the update function with selectedSchedule
         await updateSchedule(selectedSchedule.id, selectedSchedule);
       } else if (modalType === "create") {
-        // Call the create API function directly with selectedSchedule
+        // Call the create function with selectedSchedule
         await createSchedule(selectedSchedule);
       }
       // After successful operation, fetch schedules again to refresh the list and close the modal
@@ -170,7 +181,7 @@ export function ScheduleManager() {
         ({
           ...prev,
           [name]: type === "checkbox" ? checked : value,
-        } as ScheduleType)
+        } as Schedule)
     );
   };
 

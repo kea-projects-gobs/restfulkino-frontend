@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
-import { createUserWithRole } from './userService';
+import { createUserWithRole } from './createService';
 
 export default function CreateUserForm() {
   //const [name, setName] = useState('');

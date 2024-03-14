@@ -2,9 +2,10 @@ import  { useState } from 'react';
 import { CinemaManager } from './CinemaManager';
 import { HallManager } from './HallManager';
 import { MovieManager } from './MovieManager';
+import { ScheduleManager } from './ScheduleManager';
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies'>('cinemas');
+  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies' | 'schedules'>('cinemas');
 
   return (
     <div>
@@ -27,11 +28,18 @@ export default function AdminPage() {
         >
         Manage Movies
         </button>
+        <button
+        onClick={() => setActiveTab('schedules')}
+        className={`py-2 px-4 font-bold ${activeTab === 'schedules' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
+        >
+        Manage Schedules
+        </button>
       </div>
 
       {activeTab === 'cinemas' && <CinemaManager />}
       {activeTab === 'halls' && <HallManager />}
       {activeTab === 'movies' && <MovieManager />}
+      {activeTab === 'schedules' && <ScheduleManager />}
     </div>
   );
 }

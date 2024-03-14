@@ -2,7 +2,7 @@ type ScheduleType = {
   id: number;
   startTime: string;
   endTime: string;
-  date: Date;
+  date: string;
   movieTitle: string;
   hallName: string;
   cinemaName: string;

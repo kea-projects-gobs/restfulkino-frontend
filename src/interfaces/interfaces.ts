@@ -33,5 +33,16 @@ export interface Movie {
     director?: string;
     cast?: string;
     // schedule?: Schedule[];
-
 }
+
+export interface ScheduleType {
+    id: number;
+    startTime: string;
+    endTime: string;
+    date: string | Date;
+    movieTitle: string;
+    hallName: string;
+    cinemaName: string;
+    is3d: boolean;
+    isLongMovie: boolean;
+  }

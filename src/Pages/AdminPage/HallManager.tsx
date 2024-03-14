@@ -99,9 +99,14 @@ export function HallManager() {
       </button>
 
       <ul className="mt-6">
-        {halls.map((hall) => (
+        {halls.map((hall) => {
+          const cinemaName = cinemas.find(cinema => cinema.id === hall.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"
+          return (
           <li key={hall.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
-            <span className="font-medium text-gray-800">{hall.name}</span>
+            <div>
+              <span className="font-medium text-gray-800">{hall.name}</span>
+              <span className="text-gray-500"> - {cinemaName}</span>
+            </div>
             <div>
               <button
                 onClick={() => openModal("edit", hall)}
@@ -114,7 +119,8 @@ export function HallManager() {
               </button>
             </div>
           </li>
-        ))}
+        );
+        })}
       </ul>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}>
@@ -158,8 +164,11 @@ export function HallManager() {
             <p className="text-lg mb-4">Are you sure you want to delete this hall?</p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
-                <span className="text-blue-600">{selectedHall?.name}</span>
+                Hall: <span className="text-blue-600">{selectedHall?.name}</span>
               </h2>
+              <p className="text-gray-800">
+                Cinema: <span className="font-semibold">{cinemas.find(cinema => cinema.id === selectedHall?.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"}</span>
+              </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
               <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">

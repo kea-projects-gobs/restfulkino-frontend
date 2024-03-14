@@ -37,14 +37,11 @@ export function ScheduleManager() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setSelectedSchedule(
-      (prev) =>
-        ({
-          ...prev,
-          [name]: value,
-        } as ScheduleType)
-    );
+    const { name, value, checked, type } = e.target;
+    setSelectedSchedule(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    } as ScheduleType));
   };
 
   const handleDelete = async () => {
@@ -54,6 +51,7 @@ export function ScheduleManager() {
       setIsModalOpen(false);
     }
   };
+
 
   return (
     <div>

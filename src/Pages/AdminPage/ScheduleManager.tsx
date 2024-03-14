@@ -89,6 +89,8 @@ export function ScheduleManager() {
         startTime: "",
         is3d: false,
       });
+    } else if (type === "delete" && schedule) {
+      setSelectedSchedule(schedule);
     }
   };
 
@@ -203,9 +205,15 @@ export function ScheduleManager() {
       <ul className="mt-6">
         {schedule.map((schedule) => (
           <li key={schedule.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
-            <span className="font-medium text-gray-800">
-              {schedule.cinemaName} playing {schedule.movieTitle} in {schedule.hallName} on {schedule.date} at {schedule.startTime}
-            </span>
+            <div className="font-medium text-gray-800">
+              <p>
+                {schedule.cinemaName} - {schedule.movieTitle}
+              </p>
+              <p>{schedule.hallName}</p>
+              <p>
+                {schedule.date} at {schedule.startTime}
+              </p>
+            </div>
             <div>
               <button
                 onClick={() => openModal("edit", schedule)}
@@ -293,17 +301,29 @@ export function ScheduleManager() {
           </form>
         ) : (
           <div>
-            <p>Are you sure you want to delete the following schedule?</p>
-            <h2>
-              {selectedSchedule?.cinemaName ?? "Unknown Cinema"} playing {selectedSchedule?.movieTitle ?? "Unknown Movie"} in{" "}
-              {selectedSchedule?.hallName ?? "Unknown Hall"} on {selectedSchedule?.date ?? "Unknown Date"} from{" "}
-              {selectedSchedule?.startTime ?? "Unknown Start Time"} to {selectedSchedule?.endTime ?? "Unknown End Time"}
-            </h2>
-            <div className="flex justify-end items-center p-4 border-t border-gray-200">
-              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded mr-2">
+            <p className="text-lg mb-4">Are you sure you want to delete this schedule?</p>
+            <div className="bg-gray-100 p-4 rounded-lg">
+              <h2 className="text-gray-800 font-semibold">
+                Movie: <span className="text-blue-600">{selectedSchedule?.movieTitle ?? "Unknown Movie"}</span>
+              </h2>
+              <p className="text-gray-800">
+                Cinema: <span className="font-semibold">{selectedSchedule?.cinemaName ?? "Unknown Cinema"}</span>
+              </p>
+              <p className="text-gray-800">
+                Hall: <span className="font-semibold">{selectedSchedule?.hallName ?? "Unknown Hall"}</span>
+              </p>
+              <p className="text-gray-800">
+                Date: <span className="font-semibold">{selectedSchedule?.date ?? "Unknown Date"}</span>
+              </p>
+              <p className="text-gray-800">
+                Time: <span className="font-semibold">{selectedSchedule?.startTime ?? "Unknown Start Time"}</span>
+              </p>
+            </div>
+            <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
+              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
                 Yes, delete
               </button>
-              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded mr-2">
+              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
                 No, go back
               </button>
             </div>

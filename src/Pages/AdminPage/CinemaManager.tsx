@@ -132,13 +132,17 @@ export function CinemaManager() {
           </form>
         ) : (
           <div>
-            <p>Are you sure you want to delete the following cinema?</p>
-            <h2>{selectedCinema?.name}</h2>
-            <div className="flex justify-end items-center p-4 border-t border-gray-200">
-              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded mr-2">
+            <p className="text-lg mb-4">Are you sure you want to delete this cinema?</p>
+            <div className="bg-gray-100 p-4 rounded-lg">
+              <h2 className="text-gray-800 font-semibold">
+                <span className="text-blue-600">{selectedCinema?.name}</span>
+              </h2>
+            </div>
+            <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
+              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
                 Yes, delete
               </button>
-              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded mr-2">
+              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
                 No, go back
               </button>
             </div>

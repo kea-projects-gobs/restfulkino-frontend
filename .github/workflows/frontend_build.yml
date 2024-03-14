@@ -5,9 +5,9 @@ name: Frontend Build
 
 on:
   push:
-    branches: ["KINO-59-Frontend-Deployment-error"]
+    branches: ["main"]
   pull_request:
-    branches: ["KINO-59-Frontend-Deployment-error"]
+    branches: ["main"]
 
 jobs:
   build:

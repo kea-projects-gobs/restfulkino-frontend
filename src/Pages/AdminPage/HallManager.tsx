@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { getHalls, createHall, updateHall, deleteHall } from './HallUtils';
-import { getCinemas } from '../cinemapage/CinemaUtils';
-import { Hall, Cinema } from '../../interfaces/interfaces';
-import Modal from '../../generic-components/Modal';
-import InputField from '../../generic-components/InputField';
+import React, { useEffect, useState } from "react";
+import { getHalls, createHall, updateHall, deleteHall } from "./HallUtils";
+import { getCinemas } from "../cinemapage/CinemaUtils";
+import { Hall, Cinema } from "../../interfaces/interfaces";
+import Modal from "../../generic-components/Modal";
+import InputField from "../../generic-components/InputField";
 
 export function HallManager() {
   const [halls, setHalls] = useState<Hall[]>([]);
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [selectedHall, setSelectedHall] = useState<Hall | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<'create' | 'edit' | 'delete'>('create');
+  const [modalType, setModalType] = useState<"create" | "edit" | "delete">("create");
 
   useEffect(() => {
     fetchHalls();
@@ -25,13 +25,13 @@ export function HallManager() {
   const fetchCinemas = async () => {
     const response = await getCinemas();
     setCinemas(response.data);
-  }
+  };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (modalType === 'edit' && selectedHall && selectedHall.id) {
+    if (modalType === "edit" && selectedHall && selectedHall.id) {
       await updateHall(selectedHall.id, selectedHall);
-    } else if (modalType === 'create' && selectedHall) {
+    } else if (modalType === "create" && selectedHall) {
       await createHall(selectedHall);
     }
     fetchHalls();
@@ -40,16 +40,16 @@ export function HallManager() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSelectedHall(prev => {
+    setSelectedHall((prev) => {
       if (prev === null) {
         // Define a new hall object with default values and the updated field to satisfy TS ....
         const newHall: Hall = {
-          name: '',
+          name: "",
           noOfRows: 0,
           noOfColumns: 0,
-          imageUrl: '',
+          imageUrl: "",
           cinemaId: 0,
-          [name]: value
+          [name]: value,
         };
         return newHall;
       } else {
@@ -60,15 +60,15 @@ export function HallManager() {
 
   const handleCinemaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const cinemaId = parseInt(e.target.value);
-    setSelectedHall(prev => {
+    setSelectedHall((prev) => {
       if (prev === null) {
         // Define a new hall object with default values and the updated cinemaId to satisy TS....
         const newHall: Hall = {
-          name: '',
+          name: "",
           noOfRows: 0,
           noOfColumns: 0,
-          imageUrl: '',
-          cinemaId: cinemaId
+          imageUrl: "",
+          cinemaId: cinemaId,
         };
         return newHall;
       } else {
@@ -77,7 +77,7 @@ export function HallManager() {
     });
   };
 
-  const openModal = (type: 'create' | 'edit' | 'delete', hall?: Hall) => {
+  const openModal = (type: "create" | "edit" | "delete", hall?: Hall) => {
     setModalType(type);
     setSelectedHall(hall || null); // Reset selectedHall or set to the passed hall
     setIsModalOpen(true);
@@ -94,7 +94,7 @@ export function HallManager() {
   return (
     <div>
       <h1 className="text-3xl font-bold leading-tight text-gray-900">Hall Management</h1>
-      <button onClick={() => openModal('create')} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Add New Hall
       </button>
 
@@ -103,10 +103,13 @@ export function HallManager() {
           <li key={hall.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
             <span className="font-medium text-gray-800">{hall.name}</span>
             <div>
-              <button onClick={() => openModal('edit', hall)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2">
+              <button
+                onClick={() => openModal("edit", hall)}
+                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
+              >
                 Edit
               </button>
-              <button onClick={() => openModal('delete', hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
+              <button onClick={() => openModal("delete", hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
                 Delete
               </button>
             </div>
@@ -115,32 +118,39 @@ export function HallManager() {
       </ul>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}>
-        {modalType !== 'delete' ? (
+        {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <InputField label="Name" name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Hall Name" required />
             <InputField label="Rows" name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Number of Rows" />
-            <InputField label="Columns" name="noOfColumns" value={selectedHall?.noOfColumns ?? ""} onChange={handleInputChange} placeholder="Number of Columns" />
+            <InputField
+              label="Columns"
+              name="noOfColumns"
+              value={selectedHall?.noOfColumns ?? ""}
+              onChange={handleInputChange}
+              placeholder="Number of Columns"
+            />
             <InputField label="Image URL" name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
             <div>
-              <label htmlFor="cinemaId" className="block text-sm font-medium text-gray-700">Cinema
-              <select
-                id="cinemaId"
-                name="cinemaId"
-                value={selectedHall?.cinemaId ?? ""}
-                onChange={handleCinemaChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              <label htmlFor="cinemaId" className="block text-sm font-medium text-gray-700">
+                Cinema
+                <select
+                  id="cinemaId"
+                  name="cinemaId"
+                  value={selectedHall?.cinemaId ?? ""}
+                  onChange={handleCinemaChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                <option value="">Select a Cinema</option>
-                {cinemas.map((cinema) => (
-                  <option key={cinema.id} value={cinema.id}>
-                    {cinema.name}
-                  </option>
-                ))}
-              </select>
-                </label>
+                  <option value="">Select a Cinema</option>
+                  {cinemas.map((cinema) => (
+                    <option key={cinema.id} value={cinema.id}>
+                      {cinema.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {modalType === 'create' ? 'Create Hall' : 'Save Changes'}
+              {modalType === "create" ? "Create Hall" : "Save Changes"}
             </button>
           </form>
         ) : (
@@ -148,7 +158,7 @@ export function HallManager() {
             <p>Are you sure you want to delete the following hall?</p>
             <h2>{selectedHall?.name}</h2>
             <div className="flex justify-end items-center p-4 border-t border-gray-200">
-            <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded mr-2">
+              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded mr-2">
                 Yes, delete
               </button>
               <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded mr-2">

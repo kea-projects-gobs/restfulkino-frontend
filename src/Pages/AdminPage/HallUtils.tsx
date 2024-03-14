@@ -24,3 +24,7 @@ export const deleteHall = async (id: number) => {
   return axios.delete(`${API_URL}/${id}`)
 }
 
+export const getHallsByCinemaId = async (cinemaId: number) => {
+  return axios.get(`${API_URL}/cinema/${cinemaId}`)
+}
+

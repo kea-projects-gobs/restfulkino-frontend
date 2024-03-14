@@ -2,8 +2,8 @@
 
 //import { useNavigate } from 'react-router-dom';
 //import { Movie } from '../../interfaces/interfaces';
-import basiccinema from "../cinemapage/testimgs/basiccinema.jpg"
-import MoviePage from "../moviepage/Moviepage";
+import basiccinema from "../cinema/testimgs/basiccinema.jpg";
+import MoviePage from "../movie/Moviepage";
 
 export default function TestFrontpage() {
   //const navigate = useNavigate();
@@ -15,12 +15,16 @@ export default function TestFrontpage() {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-4xl font-bold text-center my-8">Welcome to Restful Kino!</h1>
-      <div className="hero h-96 bg-cover bg-center rounded-lg shadow-md" style={{ backgroundImage: `url(${basiccinema})` }}>
-      </div>
+      <h1 className="my-8 text-4xl font-bold text-center">
+        Welcome to Restful Kino!
+      </h1>
+      <div
+        className="bg-center bg-cover rounded-lg shadow-md hero h-96"
+        style={{ backgroundImage: `url(${basiccinema})` }}
+      ></div>
       <section>
-        <h2 className="text-3xl font-semibold my-8">Now Playing</h2>
-          <MoviePage />
+        <h2 className="my-8 text-3xl font-semibold">Now Playing</h2>
+        <MoviePage />
       </section>
     </div>
   );

@@ -3,12 +3,12 @@ import "./index.css";
 import Layout from "./Layout";
 import { Route, Routes } from "react-router-dom";
 import SchedulePage from "./schedule/SchedulePage";
-import TestFrontpage from "./pages/frontpage/FrontPage";
-import MovieDetailPage from "./pages/moviepage/MovieDetailPage";
-import CinemaPage from "./pages/cinemapage/CinemaPage";
-import CinemaDetailPage from "./pages/cinemapage/CinemaDetailPage";
-import AdminPage from "./pages/adminpage/AdminPage";
-import MoviePage from "./pages/moviepage/Moviepage";
+import TestFrontpage from "./Pages/FrontPage/FrontPage";
+import MovieDetailPage from "./Pages/MoviePage/MovieDetailPage";
+import CinemaPage from "./Pages/CinemaPage/CinemaPage";
+import CinemaDetailPage from "./Pages/CinemaPage/CinemaDetailPage";
+import AdminPage from "./Pages/AdminPage/AdminPage";
+import MoviePage from "./Pages/moviepage/Moviepage";
 
 function App() {
   return (

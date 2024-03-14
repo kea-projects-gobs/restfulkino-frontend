@@ -85,7 +85,7 @@ export function MovieManager() {
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <InputField label="Title" name="title" value={selectedMovie?.title ?? ""} onChange={handleInputChange} placeholder="Movie Title" required />
             <InputField label="Description" name="description" value={selectedMovie?.description ?? ""} onChange={handleInputChange} placeholder="Description" required />
-            <InputField label="Release date" name="releaseDate" value={selectedMovie?.releaseDate ?? ""} onChange={handleInputChange} placeholder="Release Date" required />
+            <InputField label="Release date" name="releaseDate" value={selectedMovie?.releaseDate ?? ""} onChange={handleInputChange} placeholder="Release Date" required type="date" />
             <InputField label="Duration" name="duration" value={selectedMovie?.duration ?? ""} onChange={handleInputChange} placeholder="Duration (in minutes)" type="number" />
             <InputField label="Image URL" name="imageUrl" value={selectedMovie?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
             <InputField label="Language" name="language" value={selectedMovie?.language ?? ""} onChange={handleInputChange} placeholder="Language" />

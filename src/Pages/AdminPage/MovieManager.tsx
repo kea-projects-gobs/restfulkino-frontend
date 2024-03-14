@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getMovies, createMovie, updateMovie, deleteMovie } from '../MoviePage/MovieUtils';// Adjust import paths as necessary
+import { getMovies, createMovie, updateMovie, deleteMovie } from '../MoviePage/MovieUtils';
+import { Link } from 'react-router-dom';
 import { Movie } from '../../interfaces/interfaces';
 import Modal from '../../generic-components/Modal';
 import InputField from '../../generic-components/InputField';
@@ -62,7 +63,11 @@ export function MovieManager() {
       <ul className="mt-6">
         {movies.map((movie) => (
           <li key={movie.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
-            <span className="font-medium text-gray-800">{movie.title}</span>
+            <span className="font-medium text-gray-800">
+              <Link to={`/schedules/movies/${movie.id}`} className='hover:underline'>
+                {movie.title}
+                </Link>
+              </span>
             <div>
               <button onClick={() => openModal('edit', movie)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2">
                 Edit

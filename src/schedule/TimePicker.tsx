@@ -13,7 +13,7 @@ export default function TimePicker({
 }: TimePickerProps) {
   return (
     <>
-      <div className="grid w-full grid-cols-3 gap-2 mt-6">
+      <div className="grid w-full grid-cols-3 gap-2">
         {schedules.length > 0 &&
           schedules.map((schedule: ScheduleType) => (
             <TimeButton
@@ -24,9 +24,6 @@ export default function TimePicker({
             />
           ))}
       </div>
-      {schedules.length == 0 && (
-        <p className="text-center">Ingen ledige tider</p>
-      )}
     </>
   );
 }

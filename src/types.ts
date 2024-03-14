@@ -1,7 +1,12 @@
 type ScheduleType = {
   id: number;
-  date: Date;
   startTime: string;
+  date: Date;
+  movieTitle: string;
+  hallName: string;
+  cinemaName: string;
+  is3d: boolean;
+  isLongMovie: boolean;
 };
 
 type CinemaType = {

@@ -17,7 +17,8 @@ export default function SchedulePage() {
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
   const [selectedCinema, setSelectedCinema] = useState<CinemaType | null>(null);
   const [selectedScheduleDate, setSelectedScheduleDate] = useState(new Date());
-  const [schedules, setSchedules] = useState([]);
+  const [schedules2d, setSchedules2d] = useState([]);
+  const [schedules3d, setSchedules3d] = useState([]);
   const [selectedTime, setSelectedTime] = useState<ScheduleType | null>(null);
 
   const handleCinemaSelect = (cinema: CinemaType) => {
@@ -30,6 +31,8 @@ export default function SchedulePage() {
   };
 
   const handleTimeSelect = (time: ScheduleType) => {
+    console.log(time);
+
     setSelectedTime(time);
   };
 
@@ -52,7 +55,11 @@ export default function SchedulePage() {
         formattedDate,
         Number(id),
         selectedCinema.id
-      ).then(data => setSchedules(data));
+      ).then(data => {
+        setSchedules3d(data.filter((schedule: ScheduleType) => schedule.is3d));
+        setSchedules2d(data.filter((schedule: ScheduleType) => !schedule.is3d));
+        return;
+      });
     }
   }, [selectedCinema, selectedScheduleDate, id]);
 
@@ -70,13 +77,28 @@ export default function SchedulePage() {
           handleDateSelect={handleDateSelect}
           chosenDate={selectedScheduleDate}
         />
-        <div className="w-[336px] mx-auto">
-          <TimePicker
-            schedules={schedules}
-            handleTimeSelect={handleTimeSelect}
-            selectedTime={selectedTime}
-          />
-        </div>
+        {schedules2d.length > 0 && (
+          <div className="w-[336px] mx-auto mt-6">
+            <TimePicker
+              schedules={schedules2d}
+              handleTimeSelect={handleTimeSelect}
+              selectedTime={selectedTime}
+            />
+          </div>
+        )}
+        {schedules3d.length > 0 && (
+          <div className="w-[336px] mx-auto mt-6">
+            <p className="pb-1 font-bold">3d</p>
+            <TimePicker
+              schedules={schedules3d}
+              handleTimeSelect={handleTimeSelect}
+              selectedTime={selectedTime}
+            />
+          </div>
+        )}
+        {schedules2d.length === 0 && schedules3d.length === 0 && (
+          <p className="mt-6 text-center">Ingen ledige tider</p>
+        )}
         <div className="flex justify-center mt-6">
           {selectedTime && (
             <button

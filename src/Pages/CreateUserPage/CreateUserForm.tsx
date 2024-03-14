@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
+import { createUserWithRole } from './userService';
 
 export default function CreateUserForm() {
   //const [name, setName] = useState('');
@@ -10,14 +11,24 @@ export default function CreateUserForm() {
   const [password, setPassword] = useState('');
   //const [repeatPassword, setRepeatPassword] = useState('');
 
-  const handleCreateUser = () => {
+  const handleCreateUser = async () => {
     // Tilføj logik til at oprette brugeren
-    //console.log('Name:', name);
-    //console.log('Phone Number:', phoneNumber);
-    console.log('Email:', email);
-    console.log('Username:', username);
-    console.log('Password:', password);
-    //console.log('Repeat Password:', repeatPassword);
+    try{
+      const userData = {
+        //name: name,
+        //phoneNumber: phoneNumber,
+        email: email,
+        username: username,
+        password: password,
+        //repeatPassword: repeatPassword,
+      };
+      const response = await createUserWithRole(userData);
+      console.log('Response:', response);
+    }
+    catch(error){
+      console.error('Error:', error);
+    }
+    
   };
 
   return (

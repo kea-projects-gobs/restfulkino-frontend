@@ -1,17 +1,17 @@
 // TODO's are outcommented
 
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 //import { Movie } from '../../interfaces/interfaces';
 import basiccinema from "../CinemaPage/testimgs/basiccinema.jpg"
 import MoviePage from '../MoviePage/Moviepage';
 
 export default function TestFrontpage() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-   const handleMovieSelect = (movieId: number) => {
-     // Redirect to the MovieDetailPage with the selected movie's ID
-     navigate(`/movies/${movieId}`)
-   };
+  //  const handleMovieSelect = (movieId: number) => {
+  //    // Redirect to the MovieDetailPage with the selected movie's ID
+  //    navigate(`/movies/${movieId}`)
+  //  };
 
   return (
     <div className="container mx-auto">
@@ -20,7 +20,7 @@ export default function TestFrontpage() {
       </div>
       <section>
         <h2 className="text-3xl font-semibold my-8">Now Playing</h2>
-          <MoviePage onMovieSelect={handleMovieSelect} />
+          <MoviePage />
       </section>
     </div>
   );

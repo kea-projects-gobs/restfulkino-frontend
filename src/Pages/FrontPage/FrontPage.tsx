@@ -3,7 +3,7 @@
 //import { useNavigate } from 'react-router-dom';
 //import { Movie } from '../../interfaces/interfaces';
 import basiccinema from "../CinemaPage/testimgs/basiccinema.jpg"
-import MoviePage from '../MoviePage/Moviepage';
+import MoviePage from '../moviepage/Moviepage';
 
 export default function TestFrontpage() {
   //const navigate = useNavigate();

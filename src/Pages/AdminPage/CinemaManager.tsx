@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getCinemas, createCinema, updateCinema, deleteCinema } from '../CinemaPage/CinemaUtils';
+import { getCinemas, createCinema, updateCinema, deleteCinema } from '../cinemapage/CinemaUtils';
 import { Cinema } from '../../interfaces/interfaces';
 import Modal from '../../generic-components/Modal';
 import InputField from '../../generic-components/InputField';

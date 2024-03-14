@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMovies, createMovie, updateMovie, deleteMovie } from '../MoviePage/MovieUtils';
+import { getMovies, createMovie, updateMovie, deleteMovie } from '../moviepage/MovieUtils';
 import { Link } from 'react-router-dom';
 import { Movie } from '../../interfaces/interfaces';
 import Modal from '../../generic-components/Modal';

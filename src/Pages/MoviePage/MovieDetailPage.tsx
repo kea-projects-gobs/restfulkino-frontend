@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCinemas } from "../CinemaPage/CinemaUtils";
+import { getCinemas } from "../cinemapage/CinemaUtils";
 import { Cinema, Movie } from "../../interfaces/interfaces";
 import { getMovieById } from "./MovieUtils";
 

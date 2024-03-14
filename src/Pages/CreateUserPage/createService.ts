@@ -1,12 +1,7 @@
 import axios from 'axios';
+import { UserData } from '../../interfaces/interfaces';
 
 const API_BASE_URL = 'http://localhost:8080/api';
-
-interface UserData {
-    email: string;
-    username: string;
-    password: string;
-  }
 
 export const createUserWithRole = async (userData: UserData) => {
     try {

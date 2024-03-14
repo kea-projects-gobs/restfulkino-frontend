@@ -6,7 +6,6 @@ export default function CreateUserForm() {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -15,7 +14,6 @@ export default function CreateUserForm() {
     console.log('Name:', name);
     console.log('Phone Number:', phoneNumber);
     console.log('Email:', email);
-    console.log('Username:', username);
     console.log('Password:', password);
     console.log('Repeat Password:', repeatPassword);
   };
@@ -41,12 +39,6 @@ export default function CreateUserForm() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <InputField
-        label="Username"
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <InputField
         label="Password"
         type="password"
         value={password}
@@ -62,11 +54,9 @@ export default function CreateUserForm() {
         Create User
       </button>
 
-      <Link to="/login">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 font-bold ml-2">
-          Back to Login
-        </button>
-      </Link>
+      <div className="mt-2">
+        Already have an account? <Link to="/login" className="text-blue-500 font-bold">Login instead!</Link>
+      </div>
     </div>
   );
 }

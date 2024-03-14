@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
 export default function LoginForm() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     //tilføj logik til at behandle login
-    console.log('Username:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
   };
 
   return (
     <div>
       <InputField
-        label="Username"
+        label="Email"
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <InputField
         label="Password"
@@ -29,11 +29,9 @@ export default function LoginForm() {
         Login
       </button>
       
-        <Link to="/createuser">
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 font-bold ml-2">
-        Create User
-      </button>
-        </Link>
+      <div className="mt-2">
+        Don't have an account? <Link to="/createuser" className="text-blue-500 font-bold">Create one instead!</Link>
+      </div>
       
     </div>
   );

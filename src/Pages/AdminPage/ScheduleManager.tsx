@@ -195,6 +195,9 @@ export function ScheduleManager() {
     }
   };
 
+  const formatTime = (timeString: string | undefined): string =>
+  timeString ? timeString.substring(0, 5) : "Unknown time";
+
   return (
     <div>
       <h1 className="text-3xl font-bold leading-tight text-gray-900">Schedule Management</h1>
@@ -211,7 +214,10 @@ export function ScheduleManager() {
               </p>
               <p>{schedule.hallName}</p>
               <p>
-                {schedule.date} at {schedule.startTime}
+                {schedule.date}
+              </p>
+              <p>
+                {formatTime(schedule.startTime)} - {formatTime(schedule.endTime)}
               </p>
             </div>
             <div>
@@ -316,7 +322,7 @@ export function ScheduleManager() {
                 Date: <span className="font-semibold">{selectedSchedule?.date ?? "Unknown Date"}</span>
               </p>
               <p className="text-gray-800">
-                Time: <span className="font-semibold">{selectedSchedule?.startTime ?? "Unknown Start Time"}</span>
+                Time: <span className="font-semibold">{formatTime(selectedSchedule?.startTime) ?? "Unknown time"}</span>
               </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">

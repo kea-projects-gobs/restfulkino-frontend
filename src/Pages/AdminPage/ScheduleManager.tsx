@@ -207,7 +207,7 @@ export function ScheduleManager() {
 
       <ul className="mt-6">
         {schedule.map((schedule) => (
-          <li key={schedule.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
+          <li key={schedule.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
             <div className="font-medium text-gray-800">
               <p>
                 {schedule.cinemaName} - {schedule.movieTitle}

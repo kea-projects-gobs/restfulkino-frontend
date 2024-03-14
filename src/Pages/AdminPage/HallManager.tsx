@@ -102,7 +102,7 @@ export function HallManager() {
         {halls.map((hall) => {
           const cinemaName = cinemas.find(cinema => cinema.id === hall.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"
           return (
-          <li key={hall.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
+          <li key={hall.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
             <div>
               <span className="font-medium text-gray-800">{hall.name}</span>
               <span className="text-gray-500"> - {cinemaName}</span>

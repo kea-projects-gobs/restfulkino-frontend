@@ -35,3 +35,9 @@ export interface Movie {
     // schedule?: Schedule[];
 
 }
+
+export interface UserData {
+    email: string;
+    username: string;
+    password: string;
+  }

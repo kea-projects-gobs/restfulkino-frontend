@@ -14,7 +14,7 @@ export default function LoginForm() {
       const response = await loginUser(userData);
 
       console.log("Login successful:", response);
-      //Logik til at omridigere bruger til en side hvor der står man er logget ind
+      //Logik til at vise bruger man er logget ind
     }
     catch(error){
       console.log("Login failed:", error);

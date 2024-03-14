@@ -1,6 +1,7 @@
 type ScheduleType = {
   id: number;
   startTime: string;
+  endTime: string;
   date: Date;
   movieTitle: string;
   hallName: string;

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCinemaById } from "./CinemaUtils";
 import { Cinema } from "../../interfaces/interfaces";
 import basicCinemaImg from "./testimgs/basiccinema.jpg";
+import { getCinemaById } from "./CinemaUtils";
 
 export default function CinemaDetailPage() {
   const { cinemaId } = useParams();
@@ -24,8 +24,12 @@ export default function CinemaDetailPage() {
     <div>
       {/* Hero Image */}
       <div className="relative">
-        <img src={cinema.imageUrl || basicCinemaImg} alt={cinema.name} className="w-full h-96 object-cover" />
-        <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 p-4 text-white w-full">
+        <img
+          src={cinema.imageUrl || basicCinemaImg}
+          alt={cinema.name}
+          className="object-cover w-full h-96"
+        />
+        <div className="absolute bottom-0 left-0 w-full p-4 text-white bg-black bg-opacity-50">
           <h1 className="text-4xl font-bold">{cinema.name}</h1>
           <p className="text-xl">
             {cinema.city}, {cinema.street}
@@ -34,21 +38,21 @@ export default function CinemaDetailPage() {
       </div>
 
       {/* Cinema Description */}
-      <div className="mx-auto p-4">
+      <div className="p-4 mx-auto">
         <div className="my-8">
-          <h2 className="text-2xl font-bold mb-2">About the Cinema</h2>
+          <h2 className="mb-2 text-2xl font-bold">About the Cinema</h2>
           <p className="text-gray-600">{cinema.description}</p>
         </div>
 
         {/* Afventer halls, spilletider etc. */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Additional information</h2>
+          <h2 className="mb-2 text-2xl font-bold">Additional information</h2>
           <p className="text-gray-600">Film, spilletider, sale etc...</p>
         </div>
 
         {/* Contact Information */}
         <div className="my-8">
-          <h2 className="text-2xl font-bold mb-2">Contact Information</h2>
+          <h2 className="mb-2 text-2xl font-bold">Contact Information</h2>
           <p className="text-gray-600">
             <strong>Phone:</strong> {cinema.phone ? cinema.phone : "N/A"}
           </p>

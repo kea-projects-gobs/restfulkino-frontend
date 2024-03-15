@@ -52,9 +52,13 @@ export function ScheduleManager() {
     }
   };
 
-  const fetchHalls = async (cinemaId: number) => {
+  const fetchHalls = async (cinemaId: number, schedule?: Schedule) => {
     const halls = await getHallsByCinemaId(cinemaId);
     setHalls(halls.data);
+    if (schedule) {
+      const hallId = halls.data.find((hall: Hall) => hall.name === schedule.hallName)?.id ?? null;
+      setSelectedHallId(hallId);
+    }
   };
 
   const openModal = async (type: "create" | "edit" | "delete", schedule?: Schedule) => {
@@ -70,11 +74,8 @@ export function ScheduleManager() {
       const cinemaId = cinemas.find((cinema) => cinema.name === schedule.cinemaName)?.id ?? null;
       setSelectedCinemaId(cinemaId);
       if (cinemaId) {
-        // Fetch halls for the selected cinema
-        await fetchHalls(cinemaId);
-        // Then, find and set the hall ID
-        const hallId = halls.find((hall) => hall.name === schedule.hallName)?.id ?? null;
-        setSelectedHallId(hallId);
+        // Fetch halls for the selected cinema and then set hall id.
+        await fetchHalls(cinemaId, schedule);
       }
     } else if (type === "create") {
       // Reset or initialize values for creating a new schedule

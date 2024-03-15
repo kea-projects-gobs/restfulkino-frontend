@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getSchedule, createSchedule, updateSchedule, deleteSchedule } from "../../services/api";
 import { getHallsByCinemaId } from "./HallUtils";
-import { getMovies } from "../moviepage/MovieUtils";
-import { getCinemas } from "../cinemapage/CinemaUtils";
+import { getMovies } from "../movie/MovieUtils";
+import { getCinemas } from "../cinema/CinemaUtils";
 import Modal from "../../generic-components/Modal";
 import InputField from "../../generic-components/InputField";
 import { Movie, Cinema, Hall, Schedule } from "../../interfaces/interfaces";
@@ -195,8 +195,7 @@ export function ScheduleManager() {
     }
   };
 
-  const formatTime = (timeString: string | undefined): string =>
-  timeString ? timeString.substring(0, 5) : "Unknown time";
+  const formatTime = (timeString: string | undefined): string => (timeString ? timeString.substring(0, 5) : "Unknown time");
 
   return (
     <div>
@@ -213,9 +212,7 @@ export function ScheduleManager() {
                 {schedule.cinemaName} - {schedule.movieTitle}
               </p>
               <p>{schedule.hallName}</p>
-              <p>
-                {schedule.date}
-              </p>
+              <p>{schedule.date}</p>
               <p>
                 {formatTime(schedule.startTime)} - {formatTime(schedule.endTime)}
               </p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getHalls, createHall, updateHall, deleteHall } from "./HallUtils";
-import { getCinemas } from "../cinemapage/CinemaUtils";
+import { getCinemas } from "../cinema/CinemaUtils";
 import { Hall, Cinema } from "../../interfaces/interfaces";
 import Modal from "../../generic-components/Modal";
 import InputField from "../../generic-components/InputField";
@@ -100,26 +100,26 @@ export function HallManager() {
 
       <ul className="mt-6">
         {halls.map((hall) => {
-          const cinemaName = cinemas.find(cinema => cinema.id === hall.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"
+          const cinemaName = cinemas.find((cinema) => cinema.id === hall.cinemaId)?.name || "The hall hasn't been connected to a cinema yet";
           return (
-          <li key={hall.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
-            <div>
-              <span className="font-medium text-gray-800">{hall.name}</span>
-              <span className="text-gray-500"> - {cinemaName}</span>
-            </div>
-            <div>
-              <button
-                onClick={() => openModal("edit", hall)}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
-              >
-                Edit
-              </button>
-              <button onClick={() => openModal("delete", hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
-                Delete
-              </button>
-            </div>
-          </li>
-        );
+            <li key={hall.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
+              <div>
+                <span className="font-medium text-gray-800">{hall.name}</span>
+                <span className="text-gray-500"> - {cinemaName}</span>
+              </div>
+              <div>
+                <button
+                  onClick={() => openModal("edit", hall)}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
+                >
+                  Edit
+                </button>
+                <button onClick={() => openModal("delete", hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
         })}
       </ul>
 
@@ -167,7 +167,10 @@ export function HallManager() {
                 Hall: <span className="text-blue-600">{selectedHall?.name}</span>
               </h2>
               <p className="text-gray-800">
-                Cinema: <span className="font-semibold">{cinemas.find(cinema => cinema.id === selectedHall?.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"}</span>
+                Cinema:{" "}
+                <span className="font-semibold">
+                  {cinemas.find((cinema) => cinema.id === selectedHall?.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"}
+                </span>
               </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">

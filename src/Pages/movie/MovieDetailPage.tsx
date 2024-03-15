@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCinemas } from "../cinemapage/CinemaUtils";
+import { getCinemas } from "../cinema/CinemaUtils";
 import { Cinema, Movie } from "../../interfaces/interfaces";
 import { getMovieById } from "./MovieUtils";
 
@@ -14,7 +14,7 @@ export default function MovieDetailPage() {
     const fetchMoviesAndCinemas = async () => {
       const cinemaResponse = await getCinemas();
       setCinemas(cinemaResponse.data);
-      if (movieId !== undefined){
+      if (movieId !== undefined) {
         const movieResponse = await getMovieById(parseInt(movieId));
         setMovie(movieResponse.data);
       }
@@ -24,7 +24,6 @@ export default function MovieDetailPage() {
 
     fetchMoviesAndCinemas();
   }, [movieId]);
-
 
   const handleCinemaSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const cinemaId = event.target.value;
@@ -37,7 +36,7 @@ export default function MovieDetailPage() {
       {movie && (
         <div className="flex flex-wrap md:flex-nowrap">
           <div className="flex-initial w-full md:w-auto">
-          <img src={movie.imageUrl} alt={movie.title} className="p-4 shadow-md bg-slate-900 rounded-md w-80 h-[30rem] object-cover" />
+            <img src={movie.imageUrl} alt={movie.title} className="p-4 shadow-md bg-slate-900 rounded-md w-80 h-[30rem] object-cover" />
           </div>
           <div className="flex-1 md:ml-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{movie.title}</h1>
@@ -60,7 +59,12 @@ export default function MovieDetailPage() {
         </div>
       )}
       <div className="my-8">
-        <select className="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" value={selectedCinema ? selectedCinema.id : ""} onChange={handleCinemaSelect} aria-label="Select a cinema">
+        <select
+          className="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
+          value={selectedCinema ? selectedCinema.id : ""}
+          onChange={handleCinemaSelect}
+          aria-label="Select a cinema"
+        >
           <option value="">Select a cinema</option>
           {cinemas.map((cinema) => (
             <option key={cinema.id} value={cinema.id}>

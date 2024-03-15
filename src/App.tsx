@@ -8,6 +8,8 @@ import MovieDetailPage from "./Pages/movie/MovieDetailPage";
 import CinemaPage from "./Pages/cinema/CinemaPage";
 import CinemaDetailPage from "./Pages/cinema/CinemaDetailPage";
 import AdminPage from "./Pages/admin/AdminPage";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import MoviePage from "./Pages/movie/Moviepage";
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/movies" element={<MoviePage />} />
         <Route path="/schedules/movies/:id" element={<SchedulePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/createuser" element={<CreateUserPage />} />
       </Routes>
     </Layout>
   );

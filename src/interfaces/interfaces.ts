@@ -47,3 +47,9 @@ export interface Schedule {
     isLongMovie?: boolean;
   }
 
+
+export interface UserData {
+    email: string;
+    username: string;
+    password: string;
+  }

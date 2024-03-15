@@ -6,7 +6,6 @@ import { loginUser } from './loginService';
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleLogin = async () => {
     try{
@@ -18,7 +17,6 @@ export default function LoginForm() {
     }
     catch(error){
       console.log("Login failed:", error);
-      setError(error.message);
     }
   };
 
@@ -36,7 +34,7 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {error && <div className="text-red-500">{error}</div>}
+      {/* {error && <div className="text-red-500">{error}</div>} */}
       <button onClick={handleLogin} className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
         Login
       </button>

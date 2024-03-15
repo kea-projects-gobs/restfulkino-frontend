@@ -8,6 +8,7 @@ export const createUserWithRole = async (userData: UserData) => {
         const response = await axios.post(`${API_BASE_URL}/user-with-role`, userData);
         return response.data; 
     } catch (error) {
-        throw error.response.data; 
+        console.error('Error:', error);
+         
     }
 };

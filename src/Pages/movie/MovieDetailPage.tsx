@@ -27,7 +27,7 @@ export default function MovieDetailPage() {
 
   const handleCinemaSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const cinemaId = event.target.value;
-    const selected = cinemas.find((cinema) => cinema.id?.toString() === cinemaId);
+    const selected = cinemas.find(cinema => cinema.id?.toString() === cinemaId);
     setSelectedCinema(selected || null);
   };
 
@@ -39,21 +39,33 @@ export default function MovieDetailPage() {
             <img src={movie.imageUrl} alt={movie.title} className="p-4 shadow-md bg-slate-900 rounded-md w-80 h-[30rem] object-cover" />
           </div>
           <div className="flex-1 md:ml-8">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{movie.title}</h1>
-            <p className="text-xs md:text-sm text-gray-500">Release Date: {movie.releaseDate}</p>
-            <p className="text-xs md:text-sm text-gray-500">Duration: {movie.duration} minutes</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              {movie.title}
+            </h1>
+            <p className="text-xs md:text-sm text-gray-500">
+              Release Date: {movie.releaseDate}
+            </p>
+            <p className="text-xs md:text-sm text-gray-500">
+              Duration: {movie.duration} minutes
+            </p>
             <div className="mt-4">
               <h2 className="text-xl md:text-2xl font-semibold">Genres</h2>
               <p className="text-md md:text-lg text-gray-600">{movie.genre}</p>
             </div>
             <div className="mt-4">
               <h2 className="text-xl md:text-2xl font-semibold">Description</h2>
-              <p className="text-md md:text-lg text-gray-600">{movie.description}</p>
+              <p className="text-md md:text-lg text-gray-600">
+                {movie.description}
+              </p>
             </div>
             <div className="mt-4">
               <h2 className="text-xl md:text-2xl font-semibold">Cast & Crew</h2>
-              <p className="text-md md:text-lg text-gray-600">Director: {movie.director}</p>
-              <p className="text-md md:text-lg text-gray-600">Stars: {movie.cast}</p>
+              <p className="text-md md:text-lg text-gray-600">
+                Director: {movie.director}
+              </p>
+              <p className="text-md md:text-lg text-gray-600">
+                Stars: {movie.cast}
+              </p>
             </div>
           </div>
         </div>
@@ -66,7 +78,7 @@ export default function MovieDetailPage() {
           aria-label="Select a cinema"
         >
           <option value="">Select a cinema</option>
-          {cinemas.map((cinema) => (
+          {cinemas.map(cinema => (
             <option key={cinema.id} value={cinema.id}>
               {cinema.name}
             </option>
@@ -79,7 +91,9 @@ export default function MovieDetailPage() {
       {selectedCinema && (
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Schedule for {selectedCinema.name}</h3>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Schedule for {selectedCinema.name}
+            </h3>
             <div className="mt-2 max-w-xl text-sm text-gray-500">
               <p>Schedule Component goes here...</p>
             </div>

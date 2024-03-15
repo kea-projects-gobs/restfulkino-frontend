@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-40 flex justify-center items-center">
-      <div className="bg-white rounded-lg shadow-xl m-4 sm:m-8" style={{ maxWidth: '500px', width: '100%' }}>
+      <div className="bg-white rounded-lg shadow-xl m-4 sm:m-8" style={{ maxWidth: '500px', width: '100%', maxHeight: '90vh' }}>
         <div className="flex justify-between items-center border-b border-gray-200 p-4">
           <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
             </svg>
           </button>
         </div>
-        <div className="p-4">
+        <div className="overflow-auto p-4" style={{ maxHeight: '80vh'}}>
           {children}
         </div>
       </div>

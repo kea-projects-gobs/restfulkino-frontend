@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
+import { getMovies, createMovie, updateMovie, deleteMovie } from "../movie/MovieUtils";
 import { Link } from "react-router-dom";
 import { Movie } from "../../interfaces/interfaces";
 import Modal from "../../generic-components/Modal";
 import InputField from "../../generic-components/InputField";
-import {
-  createMovie,
-  deleteMovie,
-  getMovies,
-  updateMovie,
-} from "../movie/MovieUtils";
 
 export function MovieManager() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<"create" | "edit" | "delete">(
-    "create"
-  );
+  const [modalType, setModalType] = useState<"create" | "edit" | "delete">("create");
 
   useEffect(() => {
     fetchMovies();
@@ -41,7 +34,7 @@ export function MovieManager() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSelectedMovie(
-      prev =>
+      (prev) =>
         ({
           ...prev,
           [name]: value,
@@ -65,41 +58,27 @@ export function MovieManager() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">
-        Movie Management
-      </h1>
-      <button
-        onClick={() => openModal("create")}
-        className="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-      >
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">Movie Management</h1>
+      <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Add New Movie
       </button>
 
       <ul className="mt-6">
-        {movies.map(movie => (
-          <li
-            key={movie.id}
-            className="flex items-center justify-between px-4 py-2 mt-2 bg-white rounded-lg shadow"
-          >
+        {movies.map((movie) => (
+          <li key={movie.id} className="flex justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
             <span className="font-medium text-gray-800">
-              <Link
-                to={`/schedules/movies/${movie.id}`}
-                className="hover:underline"
-              >
+              <Link to={`/schedules/movies/${movie.id}`} className="hover:underline">
                 {movie.title}
               </Link>
             </span>
             <div>
               <button
                 onClick={() => openModal("edit", movie)}
-                className="px-3 py-1 mr-2 font-bold text-white bg-yellow-500 rounded hover:bg-yellow-600"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
               >
                 Edit
               </button>
-              <button
-                onClick={() => openModal("delete", movie)}
-                className="px-3 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-600"
-              >
+              <button onClick={() => openModal("delete", movie)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
                 Delete
               </button>
             </div>
@@ -107,13 +86,7 @@ export function MovieManager() {
         ))}
       </ul>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title={`${
-          modalType.charAt(0).toUpperCase() + modalType.slice(1)
-        } Movie`}
-      >
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Movie`}>
         {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <InputField
@@ -139,6 +112,7 @@ export function MovieManager() {
               onChange={handleInputChange}
               placeholder="Release Date"
               required
+              type="date"
             />
             <InputField
               label="Duration"
@@ -155,57 +129,27 @@ export function MovieManager() {
               onChange={handleInputChange}
               placeholder="Image URL"
             />
-            <InputField
-              label="Language"
-              name="language"
-              value={selectedMovie?.language ?? ""}
-              onChange={handleInputChange}
-              placeholder="Language"
-            />
-            <InputField
-              label="Genres"
-              name="genre"
-              value={selectedMovie?.genre ?? ""}
-              onChange={handleInputChange}
-              placeholder="Genres"
-              required
-            />
-            <InputField
-              label="Director"
-              name="director"
-              value={selectedMovie?.director ?? ""}
-              onChange={handleInputChange}
-              placeholder="Director"
-            />
-            <InputField
-              label="Cast"
-              name="cast"
-              value={selectedMovie?.cast ?? ""}
-              onChange={handleInputChange}
-              placeholder="Cast"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-            >
+            <InputField label="Language" name="language" value={selectedMovie?.language ?? ""} onChange={handleInputChange} placeholder="Language" />
+            <InputField label="Genres" name="genre" value={selectedMovie?.genre ?? ""} onChange={handleInputChange} placeholder="Genres" required />
+            <InputField label="Director" name="director" value={selectedMovie?.director ?? ""} onChange={handleInputChange} placeholder="Director" />
+            <InputField label="Cast" name="cast" value={selectedMovie?.cast ?? ""} onChange={handleInputChange} placeholder="Cast" />
+            <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               {modalType === "create" ? "Create Movie" : "Save Changes"}
             </button>
           </form>
         ) : (
           <div>
-            <p>Are you sure you want to delete the following movie?</p>
-            <h2 className="text-lg font-bold">{selectedMovie?.title}</h2>
-            <div className="flex items-center justify-end p-4 border-t border-gray-200">
-              <button
-                onClick={handleDelete}
-                className="px-3 py-1 mr-2 font-bold text-white bg-green-500 rounded hover:bg-green-600"
-              >
+            <p className="text-lg mb-4">Are you sure you want to delete this movie?</p>
+            <div className="bg-gray-100 p-4 rounded-lg">
+              <h2 className="text-gray-800 font-semibold">
+                <span className="text-blue-600">{selectedMovie?.title}</span>
+              </h2>
+            </div>
+            <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
+              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
                 Yes, delete
               </button>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="px-3 py-1 mr-2 font-bold text-white bg-red-500 rounded hover:bg-red-600"
-              >
+              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
                 No, go back
               </button>
             </div>

@@ -1,5 +1,7 @@
 import { API_URL } from "../settings";
+import axios from "axios";
 import { MovieType } from "../types";
+import { Schedule } from "../interfaces/interfaces";
 import { handleHttpErrors } from "./fetchUtils";
 
 export async function getMoviesById(id: number): Promise<MovieType> {
@@ -18,4 +20,20 @@ export async function getSchedulesByDateAndMovieIdAndCinemaId(
 
 export async function getCinemas() {
   return await fetch(`${API_URL}/cinemas`).then(handleHttpErrors);
+}
+
+export async function getSchedule(){
+  return await axios.get(`${API_URL}/schedules`)
+}
+
+export async function createSchedule(schedule: Schedule){
+  return await axios.post(`${API_URL}/schedules`, schedule)
+}
+
+export async function updateSchedule(id: number, schedule: Schedule){
+  return await axios.put(`${API_URL}/schedules/${id}`, schedule)
+}
+
+export async function deleteSchedule(id: number){
+  return await axios.delete(`${API_URL}/schedules/${id}`)
 }

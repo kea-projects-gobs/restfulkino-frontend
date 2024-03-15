@@ -12,14 +12,18 @@ export const getHallsById = async (id: number) => {
   return axios.get(`${API_URL_HALLS}/${id}`);
 };
 
-export const createHall = async (cinema: Hall) => {
-  return axios.post(API_URL_HALLS, cinema);
+export const createHall = async (hall: Hall) => {
+  return axios.post(API_URL_HALLS, hall);
 };
 
-export const updateHall = async (id: number, cinema: Hall) => {
-  return axios.put(`${API_URL_HALLS}/${id}`, cinema);
+export const updateHall = async (id: number, hall: Hall) => {
+  return axios.put(`${API_URL_HALLS}/${id}`, hall);
 };
 
 export const deleteHall = async (id: number) => {
   return axios.delete(`${API_URL_HALLS}/${id}`);
+};
+
+export const getHallsByCinemaId = async (cinemaId: number) => {
+  return axios.get(`${API_URL_HALLS}/cinema/${cinemaId}`);
 };

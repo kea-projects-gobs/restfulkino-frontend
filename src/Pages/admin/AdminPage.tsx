@@ -2,36 +2,44 @@ import  { useState } from 'react';
 import { CinemaManager } from './CinemaManager';
 import { HallManager } from './HallManager';
 import { MovieManager } from './MovieManager';
+import { ScheduleManager } from './ScheduleManager';
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies'>('cinemas');
+  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies' | 'schedules'>('cinemas');
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 flex flex-wrap gap-4 max-w-5xl m-auto justify-center sm:flex-nowrap">
         <button
           onClick={() => setActiveTab('cinemas')}
-          className={`py-2 px-4 font-bold ${activeTab === 'cinemas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-l`}
+          className={`flex-1 py-2 px-4 font-bold ${activeTab === 'cinemas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-l`}
         >
           Manage Cinemas
         </button>
         <button
           onClick={() => setActiveTab('halls')}
-          className={`py-2 px-4 font-bold ${activeTab === 'halls' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
+          className={`flex-1 py-2 px-4 font-bold ${activeTab === 'halls' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
         >
           Manage Halls
         </button>
         <button
         onClick={() => setActiveTab('movies')}
-        className={`py-2 px-4 font-bold ${activeTab === 'movies' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
+        className={`flex-1 py-2 px-4 font-bold ${activeTab === 'movies' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
         >
         Manage Movies
+        </button>
+        <button
+        onClick={() => setActiveTab('schedules')}
+        className={`flex-1 py-2 px-4 font-bold ${activeTab === 'schedules' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
+        >
+        Manage Schedules
         </button>
       </div>
 
       {activeTab === 'cinemas' && <CinemaManager />}
       {activeTab === 'halls' && <HallManager />}
       {activeTab === 'movies' && <MovieManager />}
+      {activeTab === 'schedules' && <ScheduleManager />}
     </div>
   );
 }

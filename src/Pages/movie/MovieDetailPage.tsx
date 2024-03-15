@@ -36,11 +36,7 @@ export default function MovieDetailPage() {
       {movie && (
         <div className="flex flex-wrap md:flex-nowrap">
           <div className="flex-initial w-full md:w-auto">
-            <img
-              src={movie.imageUrl}
-              alt={movie.title}
-              className="p-4 shadow-md bg-slate-900 rounded-md w-80 h-[30rem] object-cover"
-            />
+            <img src={movie.imageUrl} alt={movie.title} className="p-4 shadow-md bg-slate-900 rounded-md w-80 h-[30rem] object-cover" />
           </div>
           <div className="flex-1 md:ml-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">

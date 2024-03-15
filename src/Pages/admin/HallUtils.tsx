@@ -1,30 +1,29 @@
-import axios from 'axios'
-import { Hall } from '../../interfaces/interfaces';
+import axios from "axios";
+import { Hall } from "../../interfaces/interfaces";
+import { API_URL } from "../../settings";
 
-
-const API_URL = 'http://localhost:8080/api/halls'
+const API_URL_HALLS = `${API_URL}/halls`;
 
 export const getHalls = async () => {
-  return axios.get(API_URL)
-}
+  return axios.get(API_URL_HALLS);
+};
 
 export const getHallsById = async (id: number) => {
-  return axios.get(`${API_URL}/${id}`)
-}
+  return axios.get(`${API_URL_HALLS}/${id}`);
+};
 
 export const createHall = async (hall: Hall) => {
-  return axios.post(API_URL, hall)
-}
+  return axios.post(API_URL_HALLS, hall);
+};
 
 export const updateHall = async (id: number, hall: Hall) => {
-  return axios.put(`${API_URL}/${id}`, hall)
-}
+  return axios.put(`${API_URL_HALLS}/${id}`, hall);
+};
 
 export const deleteHall = async (id: number) => {
-  return axios.delete(`${API_URL}/${id}`)
-}
+  return axios.delete(`${API_URL_HALLS}/${id}`);
+};
 
 export const getHallsByCinemaId = async (cinemaId: number) => {
-  return axios.get(`${API_URL}/cinema/${cinemaId}`)
-}
-
+  return axios.get(`${API_URL_HALLS}/cinema/${cinemaId}`);
+};

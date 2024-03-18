@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosWithAuth from "../../services/axios";
+import axiosWithAuth from "../../security/axios";
 import { Hall } from "../../interfaces/interfaces";
 import { API_URL } from "../../settings";
 

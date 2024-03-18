@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
-import { loginUser } from './loginService';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthProvider';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../../security/AuthProvider';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const auth = useAuth();
+  const location = useLocation();
+  // Redirects user back to the page they were trying to access
+  const from = location.state?.from || { pathname: "/" };
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,7 +17,7 @@ export default function LoginForm() {
     try{
       await auth?.signIn({ username, password});
       console.log("Login successful");
-      navigate("/"); // We need to setup correct navigation
+      navigate(from); // We need to setup correct navigation
     }
     catch(error){
       console.log("Login failed:", error);

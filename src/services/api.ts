@@ -1,6 +1,6 @@
 import { API_URL } from "../settings";
 import axios from "axios";
-import axiosWithAuth from "./axios";
+import axiosWithAuth from "../security/axios";
 import { MovieType } from "../types";
 import { Schedule } from "../interfaces/interfaces";
 import { handleHttpErrors } from "./fetchUtils";

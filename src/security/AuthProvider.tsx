@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { authProvider, LoginRequest, LoginResponse, User } from "../services/authUtils";
+import { authProvider, LoginRequest, LoginResponse, User } from "./authUtils";
 
 interface AuthContextType {
   username: string|null;

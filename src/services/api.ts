@@ -1,5 +1,6 @@
 import { API_URL } from "../settings";
 import axios from "axios";
+import axiosWithAuth from "./axios";
 import { MovieType } from "../types";
 import { Schedule } from "../interfaces/interfaces";
 import { handleHttpErrors } from "./fetchUtils";
@@ -27,13 +28,13 @@ export async function getSchedule(){
 }
 
 export async function createSchedule(schedule: Schedule){
-  return await axios.post(`${API_URL}/schedules`, schedule)
+  return await axiosWithAuth.post(`${API_URL}/schedules`, schedule)
 }
 
 export async function updateSchedule(id: number, schedule: Schedule){
-  return await axios.put(`${API_URL}/schedules/${id}`, schedule)
+  return await axiosWithAuth.put(`${API_URL}/schedules/${id}`, schedule)
 }
 
 export async function deleteSchedule(id: number){
-  return await axios.delete(`${API_URL}/schedules/${id}`)
+  return await axiosWithAuth.delete(`${API_URL}/schedules/${id}`)
 }

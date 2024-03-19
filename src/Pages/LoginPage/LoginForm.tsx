@@ -1,19 +1,23 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
-import { loginUser } from './loginService';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../../security/AuthProvider';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const auth = useAuth();
+  const location = useLocation();
+  // Redirects user back to the page they were trying to access
+  const from = location.state?.from || { pathname: "/" };
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     try{
-      const userData = { username, password };
-      const response = await loginUser(userData);
-
-      console.log("Login successful:", response);
-      //Logik til at vise bruger man er logget ind
+      await auth?.signIn({ username, password});
+      console.log("Login successful");
+      navigate(from); // We need to setup correct navigation
     }
     catch(error){
       console.log("Login failed:", error);
@@ -21,6 +25,7 @@ export default function LoginForm() {
   };
 
   return (
+    <form onSubmit={handleLogin}>
     <div>
       <InputField
         label="Username"
@@ -35,7 +40,7 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
       />
       {/* {error && <div className="text-red-500">{error}</div>} */}
-      <button onClick={handleLogin} className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
+      <button type="submit" className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
         Login
       </button>
       
@@ -44,5 +49,6 @@ export default function LoginForm() {
       </div>
       
     </div>
+    </form>
   );
 }

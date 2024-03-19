@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosWithAuth from "../../security/axios";
 import { Hall } from "../../interfaces/interfaces";
 import { API_URL } from "../../settings";
 
@@ -13,15 +14,15 @@ export const getHallsById = async (id: number) => {
 };
 
 export const createHall = async (hall: Hall) => {
-  return axios.post(API_URL_HALLS, hall);
+  return axiosWithAuth.post(API_URL_HALLS, hall);
 };
 
 export const updateHall = async (id: number, hall: Hall) => {
-  return axios.put(`${API_URL_HALLS}/${id}`, hall);
+  return axiosWithAuth.put(`${API_URL_HALLS}/${id}`, hall);
 };
 
 export const deleteHall = async (id: number) => {
-  return axios.delete(`${API_URL_HALLS}/${id}`);
+  return axiosWithAuth.delete(`${API_URL_HALLS}/${id}`);
 };
 
 export const getHallsByCinemaId = async (cinemaId: number) => {

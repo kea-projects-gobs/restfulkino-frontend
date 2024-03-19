@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { authProvider, LoginRequest, LoginResponse, User } from "./authUtils";
+import axiosWithAuth from "./axios";
+import axios from "axios";
 
 interface AuthContextType {
   username: string|null;
   signIn: (user: User) => Promise<LoginResponse>;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   isLoggedIn: () => boolean;
   isLoggedInAs: (role: string[]) => boolean;
 }
@@ -29,12 +31,24 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   };
 
 
-  //Observe how we can sign user out without involving the backend (is that (always) good?)
-  const signOut = () => {
-      setUsername(null);
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("roles");
+  // Invalidate token in backend, and remove userinfo from localstorage
+  const signOut = async () => {
+    try {
+      await axiosWithAuth.post("/auth/logout");
+      console.log("User logged out successfully");
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        // If the error is due to an expired token, proceed with client-side cleanup
+        console.log("Token expired, but proceeding with logout on client side.");
+      } else {
+        console.error("Failed to log out", error);
+      }
+    }
+    // Proceed with client-side cleanup
+    setUsername(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("roles");
   };
 
 

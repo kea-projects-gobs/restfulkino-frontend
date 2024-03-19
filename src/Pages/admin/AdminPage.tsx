@@ -7,8 +7,18 @@ import { useAuth } from '../../security/AuthProvider';
 
 export default function AdminPage() {
   const auth = useAuth();
-  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies' | 'schedules'>('cinemas');
+  
+  // Determine the intial tab, based on role
+  const getInitialTab = (): 'cinemas' | 'halls' | 'movies' | 'schedules' => {
+    if (auth?.isLoggedInAs(["ADMIN"])) {
+      return 'cinemas'; // Default tab for admins
+    } else if (auth?.isLoggedInAs(["EMPLOYEE"])) {
+      return 'movies'; // Default tab for employees
+    }
+    return 'movies'; // Fallback default
+  };
 
+  const [activeTab, setActiveTab] = useState<'cinemas' | 'halls' | 'movies' | 'schedules'>(getInitialTab());
 
   return (
     <div>

@@ -1,7 +1,9 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode , useEffect} from "react";
 import { authProvider, LoginRequest, LoginResponse, User } from "./authUtils";
 import axiosWithAuth from "./axios";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import getToken from "./authToken";
 
 interface AuthContextType {
   username: string|null;
@@ -11,8 +13,13 @@ interface AuthContextType {
   isLoggedInAs: (role: string[]) => boolean;
 }
 
+interface DecodedToken {
+  exp: number;
+}
 
 const AuthContext = createContext<AuthContextType |null>(null);
+
+let logoutTimer: number | null = null; // used to clear scheduled signout, if a new token is given e.g a new login
 
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
@@ -26,6 +33,18 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("username",user.username)
       localStorage.setItem("roles",JSON.stringify(user.roles))
       localStorage.setItem("token",user.token)
+
+      // Decode token to get expiration time
+      const decoded: DecodedToken = jwtDecode(user.token);
+      const expiresAt = new Date(decoded.exp * 1000); // Convert to milliseconds
+      const timeout = expiresAt.getTime() - new Date().getTime(); // Time until expiration
+
+      // Schedule logout just before the token expires (clears any previous scheduled logout)
+      clearTimeout(logoutTimer!);
+      logoutTimer = setTimeout(() => { // schedules the signout function to be called after the timeout
+        signOut();
+      }, timeout); // Timeout is set as the delay
+
       return user;
     });
   };
@@ -33,6 +52,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   // Invalidate token in backend, and remove userinfo from localstorage
   const signOut = async () => {
+    // Clear the logout timer on signout
+    clearTimeout(logoutTimer!);
     try {
       await axiosWithAuth.post("/auth/logout");
       console.log("User logged out successfully");
@@ -62,6 +83,24 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const roles:Array<string> = JSON.parse(localStorage.getItem("roles") || '[]');
     return roles?.some((r) => role.includes(r)) || false;
   }
+
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      const decoded: DecodedToken = jwtDecode(token);
+      const isExpired = new Date(decoded.exp * 1000) < new Date();
+      if (isExpired){
+        signOut(); // Logout immediately, if the token is expired
+      } else {
+        const timeout = new Date(decoded.exp * 1000).getTime() - new Date().getTime();
+        // Clear existing logout timer and schedule a new logout
+        clearTimeout(logoutTimer!);
+        logoutTimer = setTimeout(() => {
+          signOut();
+        }, timeout);
+      }
+    }
+  }, []);
 
 
   const value = { username, isLoggedIn, isLoggedInAs, signIn, signOut };

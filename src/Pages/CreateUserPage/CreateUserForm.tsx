@@ -1,22 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
 import { createUserWithRole } from './createService';
 
 export default function CreateUserForm() {
-  //const [name, setName] = useState('');
-  //const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   //const [repeatPassword, setRepeatPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleCreateUser = async () => {
-    // Tilføj logik til at oprette brugeren
-    try{
+    try {
       const userData = {
-        //name: name,
-        //phoneNumber: phoneNumber,
         email: email,
         username: username,
         password: password,
@@ -24,11 +20,11 @@ export default function CreateUserForm() {
       };
       const response = await createUserWithRole(userData);
       console.log('Response:', response);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error creating user:', error);
+      //setError("Failed to create user."); // Set an error state to inform the user
     }
-    catch(error){
-      console.error('Error:', error);
-    }
-    
   };
 
   return (

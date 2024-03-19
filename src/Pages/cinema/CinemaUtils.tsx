@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosWithAuth from "../../security/axios";
 import { Cinema } from "../../interfaces/interfaces";
 import { API_URL } from "../../settings";
 
@@ -17,13 +18,13 @@ export const getCinemasForMovie = async (movieId: number) => {
 };
 
 export const createCinema = async (cinema: Cinema) => {
-  return axios.post(API_URL_CINEMAS, cinema);
+  return axiosWithAuth.post(API_URL_CINEMAS, cinema);
 };
 
 export const updateCinema = async (id: number, cinema: Cinema) => {
-  return axios.put(`${API_URL_CINEMAS}/${id}`, cinema);
+  return axiosWithAuth.put(`${API_URL_CINEMAS}/${id}`, cinema);
 };
 
 export const deleteCinema = async (id: number) => {
-  return axios.delete(`${API_URL_CINEMAS}/${id}`);
+  return axiosWithAuth.delete(`${API_URL_CINEMAS}/${id}`);
 };

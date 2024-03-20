@@ -17,11 +17,12 @@ export default function AboutPage() {
   return (
     <div className="container mx-auto px-4">
       <h2 className="text-2xl font-bold my-4 text-center">Vores Biografer:</h2>
+        <hr className="mb-4"/>
       <div className="flex justify-center flex-wrap -mx-4">
         {cinemas.map(cinema => (
           <div key={cinema.id} className="p-4 md:w-1/2">
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img src={cinema.imageUrl} alt={cinema.name} className="w-full h-64 object-fit"/>
+              <img src={cinema.imageUrl} alt={cinema.name} className="w-full h-64 object-cover"/>
               <div className="p-6">
                 <h3 className="text-2xl font-semibold">{cinema.name}</h3>
                 <p className="text-gray-700 mt-2">{cinema.city}, {cinema.street}</p>

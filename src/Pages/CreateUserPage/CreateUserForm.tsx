@@ -1,22 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../generic-components/InputField';
 import { createUserWithRole } from './createService';
 
+interface HttpError extends Error {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
 export default function CreateUserForm() {
-  //const [name, setName] = useState('');
-  //const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   //const [repeatPassword, setRepeatPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleCreateUser = async () => {
-    // Tilføj logik til at oprette brugeren
-    try{
+    try {
       const userData = {
-        //name: name,
-        //phoneNumber: phoneNumber,
         email: email,
         username: username,
         password: password,
@@ -24,11 +29,19 @@ export default function CreateUserForm() {
       };
       const response = await createUserWithRole(userData);
       console.log('Response:', response);
+      navigate('/login');
+    } catch (error) {
+      // Directly use the backend-provided error message
+      const errorMessage = (error as HttpError).response?.data?.message;
+      if (errorMessage) {
+        console.error('Error creating user:', errorMessage);
+        setError(errorMessage);
+      } else {
+        // Handle the unexpected case where the error message is not provided
+        console.error('An unexpected error occurred.');
+        setError('An unexpected error occurred. Please try again.');
+      }
     }
-    catch(error){
-      console.error('Error:', error);
-    }
-    
   };
 
   return (
@@ -69,6 +82,7 @@ export default function CreateUserForm() {
         value={repeatPassword}
         onChange={(e) => setRepeatPassword(e.target.value)}
       /> */}
+      {error && <div className="text-red-500 mt-2">{error}</div>}
       <button onClick={handleCreateUser} className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
         Create User
       </button>

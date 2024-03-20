@@ -59,13 +59,7 @@ export async function getReservedSeatsByScheduleId(scheduleId: number) {
 }
 
 export async function createReservation(reservation: CreateReservationType) {
-  return await fetch(`${API_URL}/reservations`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reservation),
-  }).then(handleHttpErrors);
+  return await axiosWithAuth.post(`${API_URL}/reservations`, reservation);
 }
 
 export async function getPrices(reservation: CreateReservationType) {

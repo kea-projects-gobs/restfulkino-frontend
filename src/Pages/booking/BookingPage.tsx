@@ -43,7 +43,6 @@ export default function BookingPage() {
     };
     getPrices(reservation).then(data => {
       setPrices(data);
-      console.log(data);
     });
   }, [selectedSeats, id]);
 

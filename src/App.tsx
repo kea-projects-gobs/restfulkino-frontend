@@ -36,7 +36,15 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/createuser" element={<CreateUserPage />} />
-        <Route path="/schedules/:id/booking" element={<BookingPage />} />
+        <Route
+          path="/schedules/:id/booking"
+          element={
+            <RequireAuth roles={["USER"]}>
+              <BookingPage />
+            </RequireAuth>
+          }
+        />
+        {/* <Route path="/schedules/:id/booking" element={<BookingPage />} /> */}
       </Routes>
     </Layout>
   );

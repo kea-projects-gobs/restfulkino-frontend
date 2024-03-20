@@ -27,7 +27,7 @@ export default function CinemaDetailPage() {
         <img
           src={cinema.imageUrl || basicCinemaImg}
           alt={cinema.name}
-          className="object-cover w-full h-96"
+          className="object-cover w-full h-96 rounded-lg"
         />
         <div className="absolute bottom-0 left-0 w-full p-4 text-white bg-black bg-opacity-50">
           <h1 className="text-4xl font-bold">{cinema.name}</h1>
@@ -40,27 +40,21 @@ export default function CinemaDetailPage() {
       {/* Cinema Description */}
       <div className="p-4 mx-auto">
         <div className="my-8">
-          <h2 className="mb-2 text-2xl font-bold">About the Cinema</h2>
+          <h2 className="mb-2 text-2xl font-bold">Om biografen</h2>
           <p className="text-gray-600">{cinema.description}</p>
-        </div>
-
-        {/* Afventer halls, spilletider etc. */}
-        <div>
-          <h2 className="mb-2 text-2xl font-bold">Additional information</h2>
-          <p className="text-gray-600">Film, spilletider, sale etc...</p>
         </div>
 
         {/* Contact Information */}
         <div className="my-8">
-          <h2 className="mb-2 text-2xl font-bold">Contact Information</h2>
+          <h2 className="mb-2 text-2xl font-bold">Kontaktinformation</h2>
           <p className="text-gray-600">
-            <strong>Phone:</strong> {cinema.phone ? cinema.phone : "N/A"}
+            <strong>Telefon:</strong> {cinema.phone ? cinema.phone : "N/A"}
           </p>
           <p className="text-gray-600">
             <strong>Email:</strong> {cinema.email ? cinema.email : "N/A"}
           </p>
           <p className="text-gray-600">
-            <strong>Address:</strong> {cinema.city}, {cinema.street}
+            <strong>Adresse:</strong> {cinema.city}, {cinema.street}
           </p>
         </div>
       </div>

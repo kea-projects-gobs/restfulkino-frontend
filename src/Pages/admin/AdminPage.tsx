@@ -29,13 +29,13 @@ export default function AdminPage() {
           onClick={() => setActiveTab('cinemas')}
           className={`flex-1 py-2 px-4 font-bold ${activeTab === 'cinemas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-l`}
         >
-          Manage Cinemas
+          Biografer
         </button>
         <button
           onClick={() => setActiveTab('halls')}
           className={`flex-1 py-2 px-4 font-bold ${activeTab === 'halls' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
         >
-          Manage Halls
+          Sale
         </button>
       </>
         )}
@@ -45,13 +45,13 @@ export default function AdminPage() {
         onClick={() => setActiveTab('movies')}
         className={`flex-1 py-2 px-4 font-bold ${activeTab === 'movies' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
         >
-        Manage Movies
+        Film
         </button>
         <button
         onClick={() => setActiveTab('schedules')}
         className={`flex-1 py-2 px-4 font-bold ${activeTab === 'schedules' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-r`}
         >
-        Manage Schedules
+        Forestillinger
         </button>
         </>
         )}

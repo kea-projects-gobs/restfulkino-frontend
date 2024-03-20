@@ -7,13 +7,13 @@ export default function AuthStatus() {
     if (!auth?.isLoggedIn()) {
        return (
          <li>
-           <NavLink to="/login">Login</NavLink>
+           <NavLink to="/login">Log ind</NavLink>
          </li>
        );
      } else {
        return (
          <li>
-           <Link to="/logout">Logout (Logged in as {auth.username}) </Link>
+           <Link to="/logout">Log ud ({auth.username}) </Link>
          </li>
        );
      }

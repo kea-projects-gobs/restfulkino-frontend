@@ -200,9 +200,9 @@ export function ScheduleManager() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Schedule Management</h1>
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">Forestillings administration</h1>
       <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add New Schedule
+        Tilføj ny forestilling
       </button>
 
       <ul className="mt-6">
@@ -223,10 +223,10 @@ export function ScheduleManager() {
                 onClick={() => openModal("edit", schedule)}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
               >
-                Edit
+                Rediger
               </button>
               <button onClick={() => openModal("delete", schedule)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
-                Delete
+                Slet
               </button>
             </div>
           </li>
@@ -238,14 +238,14 @@ export function ScheduleManager() {
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Movie
+                Film
                 <select
                   id="movie"
                   value={selectedMovieId ?? ""}
                   onChange={handleMovieChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select a Movie</option>
+                  <option value="">Vælg en film</option>
                   {movies.map((movie) => (
                     <option key={movie.id} value={movie.id}>
                       {movie.title}
@@ -255,13 +255,13 @@ export function ScheduleManager() {
               </label>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Cinema</label>
+              <label className="block text-sm font-medium text-gray-700">Biograf</label>
               <select
                 value={selectedCinemaId ?? ""}
                 onChange={handleCinemaChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select a Cinema</option>
+                <option value="">Vælg en biograf</option>
                 {cinemas.map((cinema) => (
                   <option key={cinema.id} value={cinema.id}>
                     {cinema.name}
@@ -270,13 +270,13 @@ export function ScheduleManager() {
               </select>
             </div>
             <div>
-              <label>Hall</label>
+              <label>Sal</label>
               <select
                 value={selectedHallId ?? ""}
                 onChange={handleHallChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select a Hall</option>
+                <option value="">Vælg en sal</option>
                 {halls.map((hall) => (
                   <option key={hall.id} value={hall.id}>
                     {hall.name}
@@ -284,9 +284,9 @@ export function ScheduleManager() {
                 ))}
               </select>
             </div>
-            <InputField label="Date" name="date" value={selectedSchedule?.date ?? ""} onChange={handleInputChange} required type="date" />
+            <InputField label="Dato" name="date" value={selectedSchedule?.date ?? ""} onChange={handleInputChange} required type="date" />
             <InputField
-              label="Start Time"
+              label="Start tid"
               name="startTime"
               value={selectedSchedule?.startTime ?? ""}
               onChange={handleInputChange}
@@ -296,39 +296,39 @@ export function ScheduleManager() {
             <div className="flex items-center">
               <input type="checkbox" id="is3d" name="is3d" checked={selectedSchedule?.is3d || false} onChange={handleInputChange} />
               <label htmlFor="is3d" className="ml-2">
-                Is 3D
+                3D
               </label>
             </div>
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {modalType === "create" ? "Create Schedule" : "Save Changes"}
+              {modalType === "create" ? "Opret forestilling" : "Gem ændringer"}
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-lg mb-4">Are you sure you want to delete this schedule?</p>
+            <p className="text-lg mb-4">Er du sikker på at du vil slette denne forestilling?</p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
-                Movie: <span className="text-blue-600">{selectedSchedule?.movieTitle ?? "Unknown Movie"}</span>
+                Film: <span className="text-blue-600">{selectedSchedule?.movieTitle ?? "Ukendt film"}</span>
               </h2>
               <p className="text-gray-800">
-                Cinema: <span className="font-semibold">{selectedSchedule?.cinemaName ?? "Unknown Cinema"}</span>
+                Biograf: <span className="font-semibold">{selectedSchedule?.cinemaName ?? "Ukendt biograf"}</span>
               </p>
               <p className="text-gray-800">
-                Hall: <span className="font-semibold">{selectedSchedule?.hallName ?? "Unknown Hall"}</span>
+                Sal: <span className="font-semibold">{selectedSchedule?.hallName ?? "Ukendt sal"}</span>
               </p>
               <p className="text-gray-800">
-                Date: <span className="font-semibold">{selectedSchedule?.date ?? "Unknown Date"}</span>
+                Dato: <span className="font-semibold">{selectedSchedule?.date ?? "Ukendt dato"}</span>
               </p>
               <p className="text-gray-800">
-                Time: <span className="font-semibold">{formatTime(selectedSchedule?.startTime) ?? "Unknown time"}</span>
+                Tid: <span className="font-semibold">{formatTime(selectedSchedule?.startTime) ?? "Ukendt tid"}</span>
               </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
               <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
-                Yes, delete
+                Ja, slet
               </button>
               <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
-                No, go back
+                Nej, gå tilbage
               </button>
             </div>
           </div>

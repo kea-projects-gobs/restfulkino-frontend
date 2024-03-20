@@ -23,7 +23,7 @@ function App() {
         <Route path="/cinemas" element={<CinemaPage />} />
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
         <Route path="/admin" element={
-          <RequireAuth roles={["ADMIN"]}>
+          <RequireAuth roles={["ADMIN", "EMPLOYEE"]}>
           <AdminPage />
           </RequireAuth>
          } />

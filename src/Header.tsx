@@ -39,9 +39,7 @@ export const Header = () => {
                 </NavLink>
               </li>
             )}
-            <li>
               <AuthStatus />
-            </li>
           </ul>
         </nav>
       </div>

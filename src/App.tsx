@@ -13,6 +13,7 @@ import Logout from "./Pages/LoginPage/Logout";
 import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import MoviePage from "./Pages/movie/Moviepage";
 import RequireAuth from "./security/RequireAuth";
+import BookingPrice from "./generic-components/BookingPrice";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/createuser" element={<CreateUserPage />} />
+        <Route path="/bookingprice" element={<BookingPrice />} />
       </Routes>
     </Layout>
   );

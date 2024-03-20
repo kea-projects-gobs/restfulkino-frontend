@@ -15,6 +15,10 @@ type ReservationDetails = {
   reservationDate: string;
   feeOrDiscount: number;
 };
+// Future implementation - use this prop instead of the useEffect (pass it down to the component)
+// type BookingPriceProps = {
+//     reservationDetails: ReservationDetails;
+// }
 
 const BookingPrice = () => {
   const [reservationDetails, setReservationDetails] = useState<ReservationDetails | null>(null);
@@ -71,12 +75,14 @@ const BookingPrice = () => {
           <span>{ticket.price.toFixed(2)} kr</span>
         </div>
       ))}
+      <hr className="my-2" />
       <div className="my-4">
         <div className="flex justify-between">
             {reservationDetails.feeOrDiscount > 0 ? "Gebyr" : "Rabat"}
           <span>{reservationDetails.feeOrDiscount.toFixed(2)} kr</span>
         </div>
       </div>
+      <hr className="my-2" />
       <div className="flex justify-between font-bold">
         <span>Total</span>
         <span>{finalTotal.toFixed(2)} kr</span>

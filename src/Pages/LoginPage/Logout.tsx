@@ -9,15 +9,16 @@ export default function Logout() {
   useEffect(() => {
     // Wrap the logout operation in a useEffect to avoid updating state during rendering
     if (auth) {
-      auth.signOut();
-      navigate('/login'); // Redirect after logging out / we can change this to other stuff if we'd like
+      auth.signOut().then(() => {
+        navigate('/login'); // Redirect after logging out / we can change this to other stuff if we'd like
+      });
     }
   }, [auth, navigate]); // Dependencies array ensures this effect runs only when auth or navigate changes
 
-  // Render nothing or a loading indicator while the logout process completes
+  // Render a loading indicator while the logout process completes (for example of slow servers)
   return (
     <div>
       Logging out...
     </div>
-  ); // or <div>Logging out...</div>
+  ); 
 }

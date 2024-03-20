@@ -18,7 +18,7 @@ function MoviePage() {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {movies.map((movie) => (
+      {movies  && movies.map((movie) => (
         <div
           className="mx-1 my-2 p-4 shadow-md transition duration-500 ease-in-out transform hover:scale-105 bg-gray-100 rounded-md w-80 h-[30rem] flex flex-col hover:cursor-pointer"
           key={movie.id}

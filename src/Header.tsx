@@ -6,14 +6,36 @@ export const Header = () => {
   const auth = useAuth();
 
   return (
-    <header className="border-b-[1px] border-border border-solid w-full pb-4 grid grid-cols-2">
-      HEADER
-      <div className="flex justify-end gap-2">
-        <NavLink to="/">Home</NavLink>
-        {auth?.isLoggedInAs(["ADMIN"]) && (
-          <NavLink to="/admin">Admin</NavLink>
-        )}
-        <AuthStatus />
+    <header className="bg-gray-900 text-white rounded-lg shadow-lg">
+      <div className="container mx-auto py-6 px-6 flex justify-between items-center">
+        <h1 className="text-4xl ">CinemaApp</h1>
+        <nav>
+          <ul className="flex space-x-6">
+            <li>
+              <NavLink to="/" className="hover:text-gray-300">
+                Program
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/comingsoon" className="hover:text-gray-300">
+                Coming soon
+              </NavLink>
+            </li>
+            <AuthStatus />
+            <li>
+              <NavLink to="/about" className="hover:text-gray-300">
+                About
+              </NavLink>
+            </li>
+            {auth?.isLoggedInAs(["ADMIN", "EMPLOYEE"]) && (
+              <li>
+                <NavLink to="/admin" className="hover:text-gray-300">
+                  Admin
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        </nav>
       </div>
     </header>
   );

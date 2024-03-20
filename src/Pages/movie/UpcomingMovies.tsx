@@ -20,6 +20,16 @@ function UpcomingMovies() {
     setMovies(UpcomingMovies);
   };
 
+  function formatDate(dateString: string) {
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', options).replace(/ /g, '. ').toUpperCase();
+  }
+
   return (
     <div className="flex flex-wrap justify-center">
       {movies.map((movie) => (
@@ -32,6 +42,7 @@ function UpcomingMovies() {
           <div className="flex items-center justify-center flex-grow overflow-hidden">
             {movie.imageUrl && <img src={movie.imageUrl} alt={`${movie.title} Poster`} className="object-contain w-full h-full" />}
           </div>
+          <p className="mt-2 font-semibold text-center">{formatDate(movie.releaseDate)}</p>
         </div>
       ))}
     </div>

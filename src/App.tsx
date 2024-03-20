@@ -13,6 +13,7 @@ import Logout from "./Pages/LoginPage/Logout";
 import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import MoviePage from "./Pages/movie/Moviepage";
 import RequireAuth from "./security/RequireAuth";
+import BookingPage from "./Pages/booking/BookingPage";
 
 function App() {
   return (
@@ -22,16 +23,20 @@ function App() {
         <Route path="/movies/:movieId" element={<MovieDetailPage />} />
         <Route path="/cinemas" element={<CinemaPage />} />
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
-        <Route path="/admin" element={
-          <RequireAuth roles={["ADMIN"]}>
-          <AdminPage />
-          </RequireAuth>
-         } />
+        <Route
+          path="/admin"
+          element={
+            <RequireAuth roles={["ADMIN"]}>
+              <AdminPage />
+            </RequireAuth>
+          }
+        />
         <Route path="/movies" element={<MoviePage />} />
         <Route path="/schedules/movies/:id" element={<SchedulePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/createuser" element={<CreateUserPage />} />
+        <Route path="/schedules/:id/booking" element={<BookingPage />} />
       </Routes>
     </Layout>
   );

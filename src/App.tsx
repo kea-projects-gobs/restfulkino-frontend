@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import { Route, Routes } from "react-router-dom";
 import SchedulePage from "./schedule/SchedulePage";
 import TestFrontpage from "./Pages/home/FrontPage";
-import MovieDetailPage from "./Pages/movie/MovieDetailPage";
+import MovieDetailPage from "./Pages/movie/UpcomingMovies";
 import CinemaPage from "./Pages/cinema/CinemaPage";
 import CinemaDetailPage from "./Pages/cinema/CinemaDetailPage";
 import AdminPage from "./Pages/admin/AdminPage";
@@ -13,6 +13,7 @@ import Logout from "./Pages/LoginPage/Logout";
 import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import MoviePage from "./Pages/movie/Moviepage";
 import RequireAuth from "./security/RequireAuth";
+import UpcomingMovies from "./Pages/movie/UpcomingMovies";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/createuser" element={<CreateUserPage />} />
+        <Route path="/comingsoon" element={<UpcomingMovies />} />
       </Routes>
     </Layout>
   );

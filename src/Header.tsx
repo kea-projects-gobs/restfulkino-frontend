@@ -10,6 +10,7 @@ export const Header = () => {
       HEADER
       <div className="flex justify-end gap-2">
         <NavLink to="/">Home</NavLink>
+        <NavLink to="/comingsoon">Coming Soon</NavLink>
         {auth?.isLoggedInAs(["ADMIN"]) && (
           <NavLink to="/admin">Admin</NavLink>
         )}

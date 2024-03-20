@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Movie, Schedule } from "../../interfaces/interfaces";
+import { Movie } from "../../interfaces/interfaces";
 import { getMovies } from "./MovieUtils";
 import { useNavigate } from "react-router-dom";
-import { getSchedule } from "../../services/api";
 
-function MoviePage() {
+function UpcomingMovies() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const navigate = useNavigate();
 
@@ -13,21 +12,12 @@ function MoviePage() {
   }, []);
 
   const fetchMovies = async () => {
-    const schedulesResponse = await getSchedule();
+    const response = await getMovies();
     const now = new Date();
-  
-    const currentSchedules = schedulesResponse.data.filter((schedule: Schedule) => {
-      const scheduleDate = new Date(schedule.date);
-      return scheduleDate <= now;
+    const UpcomingMovies = response.data.filter((movie: Movie) => {
+      return new Date(movie.releaseDate) > now;
     });
-  
-    // Use movie titles from the schedules to filter movies
-    const currentMovieTitles = [...new Set(currentSchedules.map((schedule: Schedule) => schedule.movieTitle))];
-  
-    const moviesResponse = await getMovies();
-    const nowPlayingMovies = moviesResponse.data.filter((movie: Movie) => currentMovieTitles.includes(movie.title));
-  
-    setMovies(nowPlayingMovies);
+    setMovies(UpcomingMovies);
   };
 
   return (
@@ -48,4 +38,4 @@ function MoviePage() {
   );
 }
 
-export default MoviePage;
+export default UpcomingMovies;

@@ -15,19 +15,23 @@ function MoviePage() {
   const fetchMovies = async () => {
     const schedulesResponse = await getSchedule();
     const now = new Date();
+    const fiveDaysLater = new Date(now);
+    fiveDaysLater.setDate(now.getDate() + 5); // Set the date to 5 days later
+    //console.log(fiveDaysLater);
+    
   
-    const currentSchedules = schedulesResponse.data.filter((schedule: Schedule) => {
+    const upcomingSchedules = schedulesResponse.data.filter((schedule: Schedule) => {
       const scheduleDate = new Date(schedule.date);
-      return scheduleDate <= now;
+      return scheduleDate >= now && scheduleDate <= fiveDaysLater;
     });
   
-    // Use movie titles from the schedules to filter movies
-    const currentMovieTitles = [...new Set(currentSchedules.map((schedule: Schedule) => schedule.movieTitle))];
+    // Use movie titles from the upcoming schedules to filter movies
+    const upcomingMovieTitles = [...new Set(upcomingSchedules.map((schedule: Schedule) => schedule.movieTitle))];
   
     const moviesResponse = await getMovies();
-    const nowPlayingMovies = moviesResponse.data.filter((movie: Movie) => currentMovieTitles.includes(movie.title));
+    const moviesWithUpcomingSchedules = moviesResponse.data.filter((movie: Movie) => upcomingMovieTitles.includes(movie.title));
   
-    setMovies(nowPlayingMovies);
+    setMovies(moviesWithUpcomingSchedules);
   };
 
   return (

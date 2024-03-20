@@ -67,3 +67,13 @@ export async function createReservation(reservation: CreateReservationType) {
     body: JSON.stringify(reservation),
   }).then(handleHttpErrors);
 }
+
+export async function getPrices(reservation: CreateReservationType) {
+  return await fetch(`${API_URL}/reservations/prices`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reservation),
+  }).then(handleHttpErrors);
+}

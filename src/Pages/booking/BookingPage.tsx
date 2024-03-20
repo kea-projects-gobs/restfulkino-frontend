@@ -3,10 +3,11 @@ import SeatGrid from "./SeatGrid";
 import CanvasLogo from "./CanvasLogo";
 import BookingLegend from "./BookingLegend";
 import { useParams } from "react-router";
-import { CreateReservationType, ScheduleType } from "../../types";
+import { CreateReservationType, PriceType, ScheduleType } from "../../types";
 import {
   createReservation,
   getHallByNameAndCinemaName,
+  getPrices,
   getReservedSeatsByScheduleId,
   getSchedulesById,
 } from "../../services/api";
@@ -23,18 +24,28 @@ export default function BookingPage() {
     //   const [occupiedSeats, setOccupiedSeats] = useState<number[]>([
     // 0, 1, 2, 3, 4, 6, 7, 5, 20, 13, 14, 15,
   ]);
+  const [prices, setPrices] = useState<PriceType>();
 
   const handleSeatSelect = (seatIndex: number): void => {
     setSelectedSeats(prevSelectedSeats => {
       if (prevSelectedSeats.includes(seatIndex)) {
         return prevSelectedSeats.filter(seat => seat !== seatIndex);
       } else {
-        // console.log([...prevSelectedSeats, seatIndex]);
-
         return [...prevSelectedSeats, seatIndex];
       }
     });
   };
+
+  useEffect(() => {
+    const reservation: CreateReservationType = {
+      scheduleId: Number(id),
+      seatIndexes: selectedSeats,
+    };
+    getPrices(reservation).then(data => {
+      setPrices(data);
+      console.log(data);
+    });
+  }, [selectedSeats, id]);
 
   useEffect(() => {
     getSchedulesById(Number(id)).then(data => setSchedule(data));

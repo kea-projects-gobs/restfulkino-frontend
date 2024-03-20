@@ -46,10 +46,20 @@ type CreateReservationType = {
   seatIndexes: number[];
 };
 
+type PriceType = {
+  scheduleId: number;
+  feeOrDiscount: number;
+  tickets: {
+    seatId: number;
+    price: number;
+  };
+};
+
 export type {
   ScheduleType,
   CinemaType,
   MovieType,
   SeatType,
   CreateReservationType,
+  PriceType,
 };

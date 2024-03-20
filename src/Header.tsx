@@ -21,7 +21,6 @@ export const Header = () => {
                 Coming soon
               </NavLink>
             </li>
-            <AuthStatus />
             <li>
               <NavLink to="/about" className="hover:text-gray-300">
                 About
@@ -34,6 +33,7 @@ export const Header = () => {
                 </NavLink>
               </li>
             )}
+            <AuthStatus />
           </ul>
         </nav>
       </div>

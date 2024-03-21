@@ -28,7 +28,14 @@ export function ScheduleManager() {
   const fetchSchedules = async () => {
     try {
       const response = await getSchedule();
-      setSchedule(response.data);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0); // Ensures we get schedules for the whole day
+
+      const futureSchedules = response.data.filter((schedule: Schedule) => {
+        const scheduleDate = new Date(schedule.date);
+        return scheduleDate >= now;
+      });
+      setSchedule(futureSchedules);
     } catch (error) {
       console.error("Failed to fetch schedules:", error);
     }

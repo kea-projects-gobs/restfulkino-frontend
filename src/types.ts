@@ -34,4 +34,37 @@ type MovieType = {
   cast: string[];
 };
 
-export type { ScheduleType, CinemaType, MovieType };
+type SeatType = {
+  id: number;
+  seatIndex: number;
+  currentPrice: number;
+  hallId: number;
+};
+
+type CreateReservationType = {
+  scheduleId: number;
+  seatIndexes: number[];
+};
+
+type PriceType = {
+  scheduleId: number;
+  tickets: TicketPriceType[];
+  reservationDate: string;
+  feeOrDiscount: number;
+};
+
+type TicketPriceType = {
+  seatId: number;
+  seatIndex: number;
+  price: number;
+};
+
+export type {
+  ScheduleType,
+  CinemaType,
+  MovieType,
+  SeatType,
+  CreateReservationType,
+  PriceType,
+  TicketPriceType,
+};

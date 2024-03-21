@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
@@ -12,6 +12,7 @@ import {
 } from "../services/api";
 
 export default function SchedulePage() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieType>();
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
@@ -102,7 +103,7 @@ export default function SchedulePage() {
         <div className="flex justify-center mt-6">
           {selectedTime && (
             <button
-              onClick={() => console.log("REDIRECT TO SEAT RESERVATION")}
+              onClick={() => navigate(`/schedules/${selectedTime.id}/booking`)}
               className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
             >
               Vælg sæde(r)

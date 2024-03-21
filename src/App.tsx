@@ -4,8 +4,7 @@ import Layout from "./Layout";
 import { Route, Routes } from "react-router-dom";
 import SchedulePage from "./schedule/SchedulePage";
 import TestFrontpage from "./Pages/home/FrontPage";
-import MovieDetailPage from "./Pages/movie/MovieDetailPage";
-import CinemaPage from "./Pages/cinema/CinemaPage";
+import MovieDetailPage from "./Pages/movie/UpcomingMovies";
 import CinemaDetailPage from "./Pages/cinema/CinemaDetailPage";
 import AdminPage from "./Pages/admin/AdminPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
@@ -15,6 +14,8 @@ import MoviePage from "./Pages/movie/Moviepage";
 import RequireAuth from "./security/RequireAuth";
 import BookingPage from "./Pages/booking/BookingPage";
 import BookingConfirmation from "./Pages/booking/BookingConfirmation";
+import UpcomingMovies from "./Pages/movie/UpcomingMovies";
+import AboutPage from "./Pages/about/AboutPage";
 
 function App() {
   return (
@@ -22,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/" element={<TestFrontpage />} />
         <Route path="/movies/:movieId" element={<MovieDetailPage />} />
-        <Route path="/cinemas" element={<CinemaPage />} />
         <Route path="/cinemas/:cinemaId" element={<CinemaDetailPage />} />
         <Route
           path="/admin"
@@ -50,6 +50,8 @@ function App() {
           path="/reservation/confirmation"
           element={<BookingConfirmation />}
         />
+        <Route path="/comingsoon" element={<UpcomingMovies />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Layout>
   );

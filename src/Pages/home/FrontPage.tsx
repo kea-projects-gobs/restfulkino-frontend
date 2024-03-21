@@ -19,13 +19,13 @@ export default function TestFrontpage() {
   return (
     <div className="relative">
       <h1 className="text-4xl font-bold text-center my-8">
-        Welcome to Restful Kino!
+        Velkommen til Restful Kino!
       </h1>
       <div>
         <Carousel/>
       </div>
       <section>
-        <h2 className="text-3xl font-semibold my-8">Now Playing</h2>
+        <h2 className="text-3xl font-semibold my-8">Spiller nu</h2>
         <MoviePage />
       </section>
     </div>

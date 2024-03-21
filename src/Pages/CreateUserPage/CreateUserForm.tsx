@@ -65,13 +65,13 @@ export default function CreateUserForm() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <InputField
-        label="Username"
+        label="Brugernavn"
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <InputField
-        label="Password"
+        label="Adgangskode"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -84,11 +84,11 @@ export default function CreateUserForm() {
       /> */}
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <button onClick={handleCreateUser} className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
-        Create User
+        Opret bruger
       </button>
 
       <div className="mt-2">
-        Already have an account? <Link to="/login" className="text-blue-500 font-bold">Login instead!</Link>
+        Har du allerede en bruger? <Link to="/login" className="text-blue-500 font-bold">Log ind her!</Link>
       </div>
     </div>
   );

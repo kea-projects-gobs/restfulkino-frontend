@@ -30,24 +30,24 @@ export default function LoginForm() {
     <form onSubmit={handleLogin}>
     <div>
       <InputField
-        label="Username"
+        label="Brugernavn"
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <InputField
-        label="Password"
+        label="Adgangskode"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <button type="submit" className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
-        Login
+        Log ind
       </button>
       
       <div className="mt-2">
-        Don't have an account? <Link to="/createuser" className="text-blue-500 font-bold">Create one instead!</Link>
+        Har du ikke en bruger? <Link to="/createuser" className="text-blue-500 font-bold">Opret en her!</Link>
       </div>
       
     </div>

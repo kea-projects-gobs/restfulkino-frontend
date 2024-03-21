@@ -35,12 +35,14 @@ function Carousel() {
   };
 
   return (
-    <div className="max-w-[1440px] h-[600px] w-full m-auto  px-4 relative group">
+    <div className="max-w-full h-[600px] w-full m-auto relative group px-6">
       {slides.map((movie, index) => {
         return (
           <div
             key={movie.id}
-            className={`w-full h-full rounded-2xl bg-center bg-contain duration-500 ${currentIndex === index ? "block" : "hidden"}`}
+            className={`w-full h-full rounded-md bg-center bg-contain duration-500 ${
+              currentIndex === index ? "block" : "hidden"
+            }`}
             style={{ backgroundImage: `url(${movie.imageUrl})` }}
             onClick={() => navigate(`schedules/movies/${movie.id}`)}
           ></div>
@@ -56,7 +58,9 @@ function Carousel() {
         {slides.map((_, index) => (
           <div
             key={index}
-            className={`mx-1 text-2xl cursor-pointer ${currentIndex === index ? 'text-white' : 'text-gray-400'}`}
+            className={`mx-1 text-2xl cursor-pointer ${
+              currentIndex === index ? "text-white" : "text-gray-400"
+            }`}
             onClick={() => goToSlide(index)}
           >
             <RxDotFilled />

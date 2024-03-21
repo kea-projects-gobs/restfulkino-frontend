@@ -5,9 +5,6 @@
 import MoviePage from "../movie/Moviepage";
 import Carousel from "../home/Carousel";
 
-
-
-
 export default function TestFrontpage() {
   //const navigate = useNavigate();
 
@@ -22,10 +19,12 @@ export default function TestFrontpage() {
         Velkommen til Restful Kino!
       </h1>
       <div>
-        <Carousel/>
+        <Carousel />
       </div>
       <section>
-        <h2 className="text-3xl font-semibold my-8">Spiller nu</h2>
+        <h2 className="text-3xl font-semibold my-8 text-center py-5">
+          Spiller nu
+        </h2>
         <MoviePage />
       </section>
     </div>

@@ -14,6 +14,7 @@ import CreateUserPage from "./Pages/CreateUserPage/CreateUserPage";
 import MoviePage from "./Pages/movie/Moviepage";
 import RequireAuth from "./security/RequireAuth";
 import BookingPage from "./Pages/booking/BookingPage";
+import BookingConfirmation from "./Pages/booking/BookingConfirmation";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
           }
         />
         {/* <Route path="/schedules/:id/booking" element={<BookingPage />} /> */}
+        <Route
+          path="/reservation/confirmation"
+          element={<BookingConfirmation />}
+        />
       </Routes>
     </Layout>
   );

@@ -93,9 +93,9 @@ export function HallManager() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Hall Management</h1>
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">Sal administration</h1>
       <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add New Hall
+        Tilføj ny sal
       </button>
 
       <ul className="mt-6">
@@ -112,10 +112,10 @@ export function HallManager() {
                   onClick={() => openModal("edit", hall)}
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
                 >
-                  Edit
+                  Rediger
                 </button>
                 <button onClick={() => openModal("delete", hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
-                  Delete
+                  Slet
                 </button>
               </div>
             </li>
@@ -126,19 +126,19 @@ export function HallManager() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}>
         {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            <InputField label="Name" name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Hall Name" required />
-            <InputField label="Rows" name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Number of Rows" />
+            <InputField label="Navn" name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Sal-navn" required />
+            <InputField label="Rækker" name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Antal rækker" />
             <InputField
-              label="Columns"
+              label="Kolonner"
               name="noOfColumns"
               value={selectedHall?.noOfColumns ?? ""}
               onChange={handleInputChange}
-              placeholder="Number of Columns"
+              placeholder="Antal kolonner"
             />
-            <InputField label="Image URL" name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Image URL" />
+            <InputField label="Billede URL" name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Billede URL" />
             <div>
               <label htmlFor="cinemaId" className="block text-sm font-medium text-gray-700">
-                Cinema
+                Biograf
                 <select
                   id="cinemaId"
                   name="cinemaId"
@@ -146,7 +146,7 @@ export function HallManager() {
                   onChange={handleCinemaChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select a Cinema</option>
+                  <option value="">Vælg en biograf</option>
                   {cinemas.map((cinema) => (
                     <option key={cinema.id} value={cinema.id}>
                       {cinema.name}
@@ -156,18 +156,18 @@ export function HallManager() {
               </label>
             </div>
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {modalType === "create" ? "Create Hall" : "Save Changes"}
+              {modalType === "create" ? "Opret sal" : "Gem ændringer"}
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-lg mb-4">Are you sure you want to delete this hall?</p>
+            <p className="text-lg mb-4">Er du sikker på at du vil slette denne sal?</p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
-                Hall: <span className="text-blue-600">{selectedHall?.name}</span>
+                Sal: <span className="text-blue-600">{selectedHall?.name}</span>
               </h2>
               <p className="text-gray-800">
-                Cinema:{" "}
+                Biograf:{" "}
                 <span className="font-semibold">
                   {cinemas.find((cinema) => cinema.id === selectedHall?.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"}
                 </span>
@@ -175,10 +175,10 @@ export function HallManager() {
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
               <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
-                Yes, delete
+                Ja, slet
               </button>
               <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
-                No, go back
+                Nej, gå tilbage
               </button>
             </div>
           </div>

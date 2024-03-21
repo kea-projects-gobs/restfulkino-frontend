@@ -69,9 +69,9 @@ export function CinemaManager() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Cinema Management</h1>
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">Biograf administration</h1>
       <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add New Cinema
+        Tilføj ny biograf
       </button>
 
       <ul className="mt-6">
@@ -87,10 +87,10 @@ export function CinemaManager() {
                 onClick={() => openModal("edit", cinema)}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded mr-2"
               >
-                Edit
+                Rediger
               </button>
               <button onClick={() => openModal("delete", cinema)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
-                Delete
+                Slet
               </button>
             </div>
           </li>
@@ -100,39 +100,39 @@ export function CinemaManager() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Cinema`}>
         {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            <InputField label="Name" name="name" value={selectedCinema?.name ?? ""} onChange={handleInputChange} placeholder="Cinema Name" required />
-            <InputField label="City" name="city" value={selectedCinema?.city ?? ""} onChange={handleInputChange} placeholder="City" required />
+            <InputField label="Navn" name="name" value={selectedCinema?.name ?? ""} onChange={handleInputChange} placeholder="Biograf navn" required />
+            <InputField label="By" name="city" value={selectedCinema?.city ?? ""} onChange={handleInputChange} placeholder="By" required />
             <InputField
-              label="Street"
+              label="Gade"
               name="street"
               value={selectedCinema?.street ?? ""}
               onChange={handleInputChange}
-              placeholder="Street"
+              placeholder="Gade"
               required
             />
             <InputField
-              label="Description"
+              label="Beskrivelse"
               name="description"
               value={selectedCinema?.description ?? ""}
               onChange={handleInputChange}
-              placeholder="Description"
+              placeholder="Beskrivelse"
             />
-            <InputField label="Phone" name="phone" value={selectedCinema?.phone ?? ""} onChange={handleInputChange} placeholder="Phone" />
+            <InputField label="Telefon" name="phone" value={selectedCinema?.phone ?? ""} onChange={handleInputChange} placeholder="Telefon nummer" />
             <InputField label="Email" name="email" value={selectedCinema?.email ?? ""} onChange={handleInputChange} placeholder="Email" />
             <InputField
-              label="Image URL"
+              label="Billede URL"
               name="imageUrl"
               value={selectedCinema?.imageUrl ?? ""}
               onChange={handleInputChange}
-              placeholder="Image URL"
+              placeholder="Billede URL"
             />
             <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {modalType === "create" ? "Create Cinema" : "Save Changes"}
+              {modalType === "create" ? "Opret biograf" : "Gem ændringer"}
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-lg mb-4">Are you sure you want to delete this cinema?</p>
+            <p className="text-lg mb-4">Er du sikker på at du vil slette denne biograf?</p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
                 <span className="text-blue-600">{selectedCinema?.name}</span>
@@ -140,10 +140,10 @@ export function CinemaManager() {
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
               <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
-                Yes, delete
+                Ja, slet
               </button>
               <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
-                No, go back
+                Nej, gå tilbage
               </button>
             </div>
           </div>

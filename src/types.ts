@@ -48,11 +48,15 @@ type CreateReservationType = {
 
 type PriceType = {
   scheduleId: number;
+  tickets: TicketPriceType[];
+  reservationDate: string;
   feeOrDiscount: number;
-  tickets: {
-    seatId: number;
-    price: number;
-  };
+};
+
+type TicketPriceType = {
+  seatId: number;
+  seatIndex: number;
+  price: number;
 };
 
 export type {
@@ -62,4 +66,5 @@ export type {
   SeatType,
   CreateReservationType,
   PriceType,
+  TicketPriceType,
 };

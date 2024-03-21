@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import SeatGrid from "./SeatGrid";
 import CanvasLogo from "./CanvasLogo";
 import BookingLegend from "./BookingLegend";
-import { useParams } from "react-router";
-import { CreateReservationType, PriceType, ScheduleType } from "../../types";
+import { useNavigate, useParams } from "react-router";
+import {
+  CreateReservationType,
+  PriceType,
+  ScheduleType,
+  TicketPriceType,
+} from "../../types";
 import {
   createReservation,
   getHallByNameAndCinemaName,
@@ -11,25 +16,22 @@ import {
   getReservedSeatsByScheduleId,
   getSchedulesById,
 } from "../../services/api";
+import BookingPrice from "./BookingPrice";
 
 export default function BookingPage() {
-  //TODO: Add state to store selected seats
   const { id } = useParams();
+  const navigate = useNavigate();
   const [schedule, setSchedule] = useState<ScheduleType>();
-  // const [hall, setHall] = useState<Hall>();
   const [columns, setColumns] = useState<number>(0);
   const [rows, setRows] = useState<number>(0);
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
-  const [occupiedSeats, setOccupiedSeats] = useState<number[]>([
-    //   const [occupiedSeats, setOccupiedSeats] = useState<number[]>([
-    // 0, 1, 2, 3, 4, 6, 7, 5, 20, 13, 14, 15,
-  ]);
-  const [prices, setPrices] = useState<PriceType>();
+  const [occupiedSeats, setOccupiedSeats] = useState<number[]>([]);
+  const [prices, setPrices] = useState<PriceType | null>(null);
 
   const handleSeatSelect = (seatIndex: number): void => {
     setSelectedSeats(prevSelectedSeats => {
       if (prevSelectedSeats.includes(seatIndex)) {
-        return prevSelectedSeats.filter(seat => seat !== seatIndex);
+        return prevSelectedSeats.filter(seat => seat !== seatIndex).sort();
       } else {
         return [...prevSelectedSeats, seatIndex];
       }
@@ -42,6 +44,10 @@ export default function BookingPage() {
       seatIndexes: selectedSeats,
     };
     getPrices(reservation).then(data => {
+      const sorted = data.tickets.sort(
+        (a: TicketPriceType, b: TicketPriceType) => a.seatIndex - b.seatIndex
+      );
+      data.tickets = sorted;
       setPrices(data);
     });
   }, [selectedSeats, id]);
@@ -81,48 +87,64 @@ export default function BookingPage() {
       seatIndexes: selectedSeats,
     };
     console.log(reservation);
-    createReservation(reservation).then(data => {
-      console.log("Reservation created");
-      console.log(data);
-    });
+    createReservation(reservation)
+      .then(() => {
+        const seatDetails = selectedSeats.map(seatIndex => {
+          return getSeatDisplayName(seatIndex);
+        });
+        navigate("/reservation/confirmation", {
+          state: { seatDetails: seatDetails, schedule: schedule },
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
     <>
-      <div className="flex flex-col justify-center mx-auto">
-        <h1 className="pb-2 text-2xl font-bold text-center">1. Vælg Sæder</h1>
-        <div className="mx-auto">
-          <CanvasLogo isLarge={columns > 12} />
-        </div>
-        <SeatGrid
-          rows={rows}
-          columns={columns}
-          handleSeatSelect={handleSeatSelect}
-          selectedSeats={selectedSeats}
-          occupiedSeats={occupiedSeats}
-        />
-        <BookingLegend />
-        <div className="pt-4">
-          <h2 className="text-center">Valgte Sæder</h2>
-          <div className="flex flex-wrap justify-center gap-1 max-w-[200px] mx-auto">
-            {selectedSeats.map(seat => (
-              <span
-                key={seat}
-                className="w-10 p-1 text-center text-white bg-gray-900 rounded"
-              >
-                {" "}
-                {getSeatDisplayName(seat)}{" "}
-              </span>
-            ))}
+      <div className="flex flex-row flex-wrap justify-center gap-6 mx-auto align-top">
+        <div className="flex flex-col justify-start">
+          <h1 className="pb-2 text-2xl font-bold text-center">Vælg Sæder</h1>
+          <div className="mx-auto">
+            <CanvasLogo isLarge={columns > 12} />
+          </div>
+          <SeatGrid
+            rows={rows}
+            columns={columns}
+            handleSeatSelect={handleSeatSelect}
+            selectedSeats={selectedSeats}
+            occupiedSeats={occupiedSeats}
+          />
+          <BookingLegend />
+          {/* <div className="pt-4">
+            <h2 className="text-center">Valgte Sæder</h2>
+            <div className="flex flex-wrap justify-center gap-1 max-w-[200px] mx-auto">
+              {selectedSeats.map(seat => (
+                <span
+                  key={seat}
+                  className="w-10 p-1 text-center text-white bg-gray-900 rounded"
+                >
+                  {" "}
+                  {getSeatDisplayName(seat)}{" "}
+                </span>
+              ))}
+            </div>
+          </div> */}
+          <div className="mx-auto mt-6">
+            <button
+              className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
+              onClick={handleReservationSubmit}
+            >
+              Reserver sæder
+            </button>
           </div>
         </div>
-        <div className="mx-auto mt-6">
-          <button
-            className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
-            onClick={handleReservationSubmit}
-          >
-            Reserver sæder
-          </button>
+        <div className="w-[360px]">
+          <BookingPrice
+            reservationDetails={prices}
+            getSeatDisplayName={getSeatDisplayName}
+          />
         </div>
       </div>
     </>

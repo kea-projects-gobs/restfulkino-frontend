@@ -48,6 +48,8 @@ export default function BookingConfirmation() {
                       {seat}{" "}
                     </span>
                   ))}
+                </div>
+                <div className="flex justify-center">
                   <button className="h-10 p-2 w-[200px] text-white bg-blue-700 rounded hover:bg-blue-800 mt-6">
                     <Link to={"/"}>Gå tilbage til forsiden</Link>
                   </button>

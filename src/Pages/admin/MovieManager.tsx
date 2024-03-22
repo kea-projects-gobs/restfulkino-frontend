@@ -4,7 +4,7 @@ import {
   createMovie,
   updateMovie,
   deleteMovie,
-} from "../movie/MovieUtils";
+} from "../../services/api/MovieUtils";
 import { Link } from "react-router-dom";
 import { Movie } from "../../interfaces/interfaces";
 import Modal from "../../components/Modal";

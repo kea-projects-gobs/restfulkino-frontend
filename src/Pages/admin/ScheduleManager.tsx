@@ -4,10 +4,10 @@ import {
   createSchedule,
   updateSchedule,
   deleteSchedule,
-} from "../../services/api";
-import { getHallsByCinemaId } from "./HallUtils";
-import { getMovies } from "../movie/MovieUtils";
-import { getCinemas } from "../cinema/CinemaUtils";
+} from "../../services/api/api";
+import { getHallsByCinemaId } from "../../services/api/HallUtils";
+import { getMovies } from "../../services/api/MovieUtils";
+import { getCinemas } from "../../services/api/CinemaUtils";
 import Modal from "../../components/Modal";
 import InputField from "../../components/InputField";
 import { Movie, Cinema, Hall, Schedule } from "../../interfaces/interfaces";

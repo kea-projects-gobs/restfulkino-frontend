@@ -9,7 +9,7 @@ import {
   getCinemas,
   getMoviesById,
   getSchedulesByDateAndMovieIdAndCinemaId,
-} from "../../services/api";
+} from "../../services/api/api";
 
 export default function SchedulePage() {
   const navigate = useNavigate();

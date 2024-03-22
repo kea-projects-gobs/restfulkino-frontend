@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Cinema } from "../../interfaces/interfaces";
 import basicCinemaImg from "./testimgs/basiccinema.jpg";
-import { getCinemaById } from "./CinemaUtils";
+import { getCinemaById } from "../../services/api/CinemaUtils";
 
 export default function CinemaDetailPage() {
   const { cinemaId } = useParams();

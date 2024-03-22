@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Movie, Schedule } from "../../interfaces/interfaces";
-import { getMovies } from "./MovieUtils";
+import { getMovies } from "../../services/api/MovieUtils";
 import { useNavigate } from "react-router-dom";
-import { getSchedule } from "../../services/api";
+import { getSchedule } from "../../services/api/api";
 
 function MoviePage() {
   const [movies, setMovies] = useState<Movie[]>([]);

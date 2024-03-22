@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
-import { getMovies } from "../movie/MovieUtils";
-import { getSchedule } from "../../services/api";
+import { getMovies } from "../../services/api/MovieUtils";
+import { getSchedule } from "../../services/api/api";
 import { Movie, Schedule } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router";
 

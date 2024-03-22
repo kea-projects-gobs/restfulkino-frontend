@@ -56,17 +56,17 @@ function Carousel() {
           ></div>
         );
       })}
-      <div className="flex absolute top-1/2 -translate-y-1/2 left-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex absolute top-1/2 -translate-y-1/2 left-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer md:opacity-0 group-hover:opacity-100 transition-opacity">
         <BsChevronCompactLeft onClick={prevSlide} size={30} />
       </div>
-      <div className="flex absolute top-1/2 -translate-y-1/2 right-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex absolute top-1/2 -translate-y-1/2 right-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer md:opacity-0 group-hover:opacity-100 transition-opacity">
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
       <div className="flex justify-center py-2">
         {slides.map((_, index) => (
           <div
             key={index}
-            className={`mx-1 text-2xl cursor-pointer ${
+            className={`mx-1 text-lg md:text-2xl cursor-pointer ${
               currentIndex === index ? "text-white" : "text-gray-400"
             }`}
             onClick={() => goToSlide(index)}

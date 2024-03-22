@@ -56,10 +56,10 @@ function Carousel() {
           ></div>
         );
       })}
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[50%] left-1 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+      <div className="flex absolute top-1/2 -translate-y-1/2 left-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
         <BsChevronCompactLeft onClick={prevSlide} size={30} />
       </div>
-      <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[50%] right-1 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+      <div className="flex absolute top-1/2 -translate-y-1/2 right-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
       <div className="flex justify-center py-2">

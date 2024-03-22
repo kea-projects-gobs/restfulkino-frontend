@@ -2,7 +2,7 @@ import "./index.css";
 //import Home from "./Home";
 import Layout from "./Layout";
 import { Route, Routes } from "react-router-dom";
-import SchedulePage from "./schedule/SchedulePage";
+import SchedulePage from "./Pages/schedule/SchedulePage";
 import TestFrontpage from "./Pages/home/FrontPage";
 import MovieDetailPage from "./Pages/movie/UpcomingMovies";
 import CinemaDetailPage from "./Pages/cinema/CinemaDetailPage";

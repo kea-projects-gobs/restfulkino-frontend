@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { getHalls, createHall, updateHall, deleteHall } from "./HallUtils";
 import { getCinemas } from "../cinema/CinemaUtils";
 import { Hall, Cinema } from "../../interfaces/interfaces";
-import Modal from "../../generic-components/Modal";
-import InputField from "../../generic-components/InputField";
+import Modal from "../../components/Modal";
+import InputField from "../../components/InputField";
 
 export function HallManager() {
   const [halls, setHalls] = useState<Hall[]>([]);
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [selectedHall, setSelectedHall] = useState<Hall | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<"create" | "edit" | "delete">("create");
+  const [modalType, setModalType] = useState<"create" | "edit" | "delete">(
+    "create"
+  );
 
   useEffect(() => {
     fetchHalls();
@@ -40,7 +42,7 @@ export function HallManager() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSelectedHall((prev) => {
+    setSelectedHall(prev => {
       if (prev === null) {
         // Define a new hall object with default values and the updated field to satisfy TS ....
         const newHall: Hall = {
@@ -60,7 +62,7 @@ export function HallManager() {
 
   const handleCinemaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const cinemaId = parseInt(e.target.value);
-    setSelectedHall((prev) => {
+    setSelectedHall(prev => {
       if (prev === null) {
         // Define a new hall object with default values and the updated cinemaId to satisy TS....
         const newHall: Hall = {
@@ -93,16 +95,26 @@ export function HallManager() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Sal administration</h1>
-      <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">
+        Sal administration
+      </h1>
+      <button
+        onClick={() => openModal("create")}
+        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
         Tilføj ny sal
       </button>
 
       <ul className="mt-6">
-        {halls.map((hall) => {
-          const cinemaName = cinemas.find((cinema) => cinema.id === hall.cinemaId)?.name || "The hall hasn't been connected to a cinema yet";
+        {halls.map(hall => {
+          const cinemaName =
+            cinemas.find(cinema => cinema.id === hall.cinemaId)?.name ||
+            "The hall hasn't been connected to a cinema yet";
           return (
-            <li key={hall.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
+            <li
+              key={hall.id}
+              className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2"
+            >
               <div>
                 <span className="font-medium text-gray-800">{hall.name}</span>
                 <span className="text-gray-500"> - {cinemaName}</span>
@@ -114,7 +126,10 @@ export function HallManager() {
                 >
                   Rediger
                 </button>
-                <button onClick={() => openModal("delete", hall)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
+                <button
+                  onClick={() => openModal("delete", hall)}
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
+                >
                   Slet
                 </button>
               </div>
@@ -123,11 +138,28 @@ export function HallManager() {
         })}
       </ul>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Hall`}
+      >
         {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
-            <InputField label="Navn" name="name" value={selectedHall?.name ?? ""} onChange={handleInputChange} placeholder="Sal-navn" required />
-            <InputField label="Rækker" name="noOfRows" value={selectedHall?.noOfRows ?? ""} onChange={handleInputChange} placeholder="Antal rækker" />
+            <InputField
+              label="Navn"
+              name="name"
+              value={selectedHall?.name ?? ""}
+              onChange={handleInputChange}
+              placeholder="Sal-navn"
+              required
+            />
+            <InputField
+              label="Rækker"
+              name="noOfRows"
+              value={selectedHall?.noOfRows ?? ""}
+              onChange={handleInputChange}
+              placeholder="Antal rækker"
+            />
             <InputField
               label="Kolonner"
               name="noOfColumns"
@@ -135,9 +167,18 @@ export function HallManager() {
               onChange={handleInputChange}
               placeholder="Antal kolonner"
             />
-            <InputField label="Billede URL" name="imageUrl" value={selectedHall?.imageUrl ?? ""} onChange={handleInputChange} placeholder="Billede URL" />
+            <InputField
+              label="Billede URL"
+              name="imageUrl"
+              value={selectedHall?.imageUrl ?? ""}
+              onChange={handleInputChange}
+              placeholder="Billede URL"
+            />
             <div>
-              <label htmlFor="cinemaId" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="cinemaId"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Biograf
                 <select
                   id="cinemaId"
@@ -147,7 +188,7 @@ export function HallManager() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Vælg en biograf</option>
-                  {cinemas.map((cinema) => (
+                  {cinemas.map(cinema => (
                     <option key={cinema.id} value={cinema.id}>
                       {cinema.name}
                     </option>
@@ -155,13 +196,18 @@ export function HallManager() {
                 </select>
               </label>
             </div>
-            <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              type="submit"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               {modalType === "create" ? "Opret sal" : "Gem ændringer"}
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-lg mb-4">Er du sikker på at du vil slette denne sal?</p>
+            <p className="text-lg mb-4">
+              Er du sikker på at du vil slette denne sal?
+            </p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
                 Sal: <span className="text-blue-600">{selectedHall?.name}</span>
@@ -169,15 +215,22 @@ export function HallManager() {
               <p className="text-gray-800">
                 Biograf:{" "}
                 <span className="font-semibold">
-                  {cinemas.find((cinema) => cinema.id === selectedHall?.cinemaId)?.name || "The hall hasn't been connected to a cinema yet"}
+                  {cinemas.find(cinema => cinema.id === selectedHall?.cinemaId)
+                    ?.name || "The hall hasn't been connected to a cinema yet"}
                 </span>
               </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
-              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
+              <button
+                onClick={handleDelete}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l"
+              >
                 Ja, slet
               </button>
-              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2"
+              >
                 Nej, gå tilbage
               </button>
             </div>

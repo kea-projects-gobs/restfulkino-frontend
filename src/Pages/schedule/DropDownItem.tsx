@@ -1,4 +1,4 @@
-import { CinemaType } from "../types";
+import { CinemaType } from "../../types/types";
 
 type DropDownItemProps = {
   item: CinemaType;

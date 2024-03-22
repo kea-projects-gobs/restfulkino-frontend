@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { getSchedule, createSchedule, updateSchedule, deleteSchedule } from "../../services/api";
+import {
+  getSchedule,
+  createSchedule,
+  updateSchedule,
+  deleteSchedule,
+} from "../../services/api";
 import { getHallsByCinemaId } from "./HallUtils";
 import { getMovies } from "../movie/MovieUtils";
 import { getCinemas } from "../cinema/CinemaUtils";
-import Modal from "../../generic-components/Modal";
-import InputField from "../../generic-components/InputField";
+import Modal from "../../components/Modal";
+import InputField from "../../components/InputField";
 import { Movie, Cinema, Hall, Schedule } from "../../interfaces/interfaces";
 
 export function ScheduleManager() {
@@ -12,12 +17,16 @@ export function ScheduleManager() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [halls, setHalls] = useState<Hall[]>([]);
-  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
+    null
+  );
   const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
   const [selectedCinemaId, setSelectedCinemaId] = useState<number | null>(null);
   const [selectedHallId, setSelectedHallId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<"create" | "edit" | "delete">("create");
+  const [modalType, setModalType] = useState<"create" | "edit" | "delete">(
+    "create"
+  );
 
   useEffect(() => {
     fetchSchedules();
@@ -63,22 +72,29 @@ export function ScheduleManager() {
     const halls = await getHallsByCinemaId(cinemaId);
     setHalls(halls.data);
     if (schedule) {
-      const hallId = halls.data.find((hall: Hall) => hall.name === schedule.hallName)?.id ?? null;
+      const hallId =
+        halls.data.find((hall: Hall) => hall.name === schedule.hallName)?.id ??
+        null;
       setSelectedHallId(hallId);
     }
   };
 
-  const openModal = async (type: "create" | "edit" | "delete", schedule?: Schedule) => {
+  const openModal = async (
+    type: "create" | "edit" | "delete",
+    schedule?: Schedule
+  ) => {
     setModalType(type);
     setIsModalOpen(true);
 
     if (type === "edit" && schedule) {
       setSelectedSchedule(schedule);
       // Find and set the movie ID
-      const movieId = movies.find((movie) => movie.title === schedule.movieTitle)?.id ?? null;
+      const movieId =
+        movies.find(movie => movie.title === schedule.movieTitle)?.id ?? null;
       setSelectedMovieId(movieId);
       // Find and set the cinema ID
-      const cinemaId = cinemas.find((cinema) => cinema.name === schedule.cinemaName)?.id ?? null;
+      const cinemaId =
+        cinemas.find(cinema => cinema.name === schedule.cinemaName)?.id ?? null;
       setSelectedCinemaId(cinemaId);
       if (cinemaId) {
         // Fetch halls for the selected cinema and then set hall id.
@@ -107,10 +123,10 @@ export function ScheduleManager() {
     setSelectedMovieId(movieId);
 
     // Find the selected movie by ID
-    const selectedMovie = movies.find((movie) => movie.id === movieId);
+    const selectedMovie = movies.find(movie => movie.id === movieId);
     if (selectedMovie) {
       // Update the selectedSchedule with the movie's name
-      setSelectedSchedule((prev) =>
+      setSelectedSchedule(prev =>
         prev
           ? {
               ...prev,
@@ -125,10 +141,10 @@ export function ScheduleManager() {
     const cinemaId = parseInt(e.target.value, 10);
     setSelectedCinemaId(cinemaId);
     // Find the selected cinema by ID
-    const selectedCinema = cinemas.find((cinema) => cinema.id === cinemaId);
+    const selectedCinema = cinemas.find(cinema => cinema.id === cinemaId);
     if (selectedCinema) {
       // Update the selectedSchedule with the cinema's name
-      setSelectedSchedule((prevSchedule) =>
+      setSelectedSchedule(prevSchedule =>
         prevSchedule
           ? {
               ...prevSchedule,
@@ -145,10 +161,10 @@ export function ScheduleManager() {
     const hallId = parseInt(e.target.value, 10);
     setSelectedHallId(hallId);
     // Find the selected hall by ID
-    const selectedHall = halls.find((hall) => hall.id === hallId);
+    const selectedHall = halls.find(hall => hall.id === hallId);
     if (selectedHall) {
       // Update the selectedSchedule with the hall's name
-      setSelectedSchedule((prevSchedule) =>
+      setSelectedSchedule(prevSchedule =>
         prevSchedule
           ? {
               ...prevSchedule,
@@ -163,7 +179,12 @@ export function ScheduleManager() {
     e.preventDefault();
 
     // Check if the necessary information is present to make TS happy
-    if (!selectedSchedule || !selectedSchedule.movieTitle || !selectedSchedule.cinemaName || !selectedSchedule.hallName) {
+    if (
+      !selectedSchedule ||
+      !selectedSchedule.movieTitle ||
+      !selectedSchedule.cinemaName ||
+      !selectedSchedule.hallName
+    ) {
       return;
     }
 
@@ -187,7 +208,7 @@ export function ScheduleManager() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = e.target;
     setSelectedSchedule(
-      (prev) =>
+      prev =>
         ({
           ...prev,
           [name]: type === "checkbox" ? checked : value,
@@ -203,18 +224,27 @@ export function ScheduleManager() {
     }
   };
 
-  const formatTime = (timeString: string | undefined): string => (timeString ? timeString.substring(0, 5) : "Unknown time");
+  const formatTime = (timeString: string | undefined): string =>
+    timeString ? timeString.substring(0, 5) : "Unknown time";
 
   return (
     <div>
-      <h1 className="text-3xl font-bold leading-tight text-gray-900">Forestillings administration</h1>
-      <button onClick={() => openModal("create")} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <h1 className="text-3xl font-bold leading-tight text-gray-900">
+        Forestillings administration
+      </h1>
+      <button
+        onClick={() => openModal("create")}
+        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
         Tilføj ny forestilling
       </button>
 
       <ul className="mt-6">
-        {schedule.map((schedule) => (
-          <li key={schedule.id} className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2">
+        {schedule.map(schedule => (
+          <li
+            key={schedule.id}
+            className="flex flex-wrap justify-between items-center bg-white shadow px-4 py-2 rounded-lg mt-2"
+          >
             <div className="font-medium text-gray-800">
               <p>
                 {schedule.cinemaName} - {schedule.movieTitle}
@@ -222,7 +252,8 @@ export function ScheduleManager() {
               <p>{schedule.hallName}</p>
               <p>{schedule.date}</p>
               <p>
-                {formatTime(schedule.startTime)} - {formatTime(schedule.endTime)}
+                {formatTime(schedule.startTime)} -{" "}
+                {formatTime(schedule.endTime)}
               </p>
             </div>
             <div>
@@ -232,7 +263,10 @@ export function ScheduleManager() {
               >
                 Rediger
               </button>
-              <button onClick={() => openModal("delete", schedule)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">
+              <button
+                onClick={() => openModal("delete", schedule)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded"
+              >
                 Slet
               </button>
             </div>
@@ -240,7 +274,13 @@ export function ScheduleManager() {
         ))}
       </ul>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${modalType.charAt(0).toUpperCase() + modalType.slice(1)} Schedule`}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={`${
+          modalType.charAt(0).toUpperCase() + modalType.slice(1)
+        } Schedule`}
+      >
         {modalType !== "delete" ? (
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <div>
@@ -253,7 +293,7 @@ export function ScheduleManager() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Vælg en film</option>
-                  {movies.map((movie) => (
+                  {movies.map(movie => (
                     <option key={movie.id} value={movie.id}>
                       {movie.title}
                     </option>
@@ -262,14 +302,16 @@ export function ScheduleManager() {
               </label>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Biograf</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Biograf
+              </label>
               <select
                 value={selectedCinemaId ?? ""}
                 onChange={handleCinemaChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="">Vælg en biograf</option>
-                {cinemas.map((cinema) => (
+                {cinemas.map(cinema => (
                   <option key={cinema.id} value={cinema.id}>
                     {cinema.name}
                   </option>
@@ -284,14 +326,21 @@ export function ScheduleManager() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="">Vælg en sal</option>
-                {halls.map((hall) => (
+                {halls.map(hall => (
                   <option key={hall.id} value={hall.id}>
                     {hall.name}
                   </option>
                 ))}
               </select>
             </div>
-            <InputField label="Dato" name="date" value={selectedSchedule?.date ?? ""} onChange={handleInputChange} required type="date" />
+            <InputField
+              label="Dato"
+              name="date"
+              value={selectedSchedule?.date ?? ""}
+              onChange={handleInputChange}
+              required
+              type="date"
+            />
             <InputField
               label="Start tid"
               name="startTime"
@@ -301,40 +350,72 @@ export function ScheduleManager() {
               type="time"
             />
             <div className="flex items-center">
-              <input type="checkbox" id="is3d" name="is3d" checked={selectedSchedule?.is3d || false} onChange={handleInputChange} />
+              <input
+                type="checkbox"
+                id="is3d"
+                name="is3d"
+                checked={selectedSchedule?.is3d || false}
+                onChange={handleInputChange}
+              />
               <label htmlFor="is3d" className="ml-2">
                 3D
               </label>
             </div>
-            <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              type="submit"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               {modalType === "create" ? "Opret forestilling" : "Gem ændringer"}
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-lg mb-4">Er du sikker på at du vil slette denne forestilling?</p>
+            <p className="text-lg mb-4">
+              Er du sikker på at du vil slette denne forestilling?
+            </p>
             <div className="bg-gray-100 p-4 rounded-lg">
               <h2 className="text-gray-800 font-semibold">
-                Film: <span className="text-blue-600">{selectedSchedule?.movieTitle ?? "Ukendt film"}</span>
+                Film:{" "}
+                <span className="text-blue-600">
+                  {selectedSchedule?.movieTitle ?? "Ukendt film"}
+                </span>
               </h2>
               <p className="text-gray-800">
-                Biograf: <span className="font-semibold">{selectedSchedule?.cinemaName ?? "Ukendt biograf"}</span>
+                Biograf:{" "}
+                <span className="font-semibold">
+                  {selectedSchedule?.cinemaName ?? "Ukendt biograf"}
+                </span>
               </p>
               <p className="text-gray-800">
-                Sal: <span className="font-semibold">{selectedSchedule?.hallName ?? "Ukendt sal"}</span>
+                Sal:{" "}
+                <span className="font-semibold">
+                  {selectedSchedule?.hallName ?? "Ukendt sal"}
+                </span>
               </p>
               <p className="text-gray-800">
-                Dato: <span className="font-semibold">{selectedSchedule?.date ?? "Ukendt dato"}</span>
+                Dato:{" "}
+                <span className="font-semibold">
+                  {selectedSchedule?.date ?? "Ukendt dato"}
+                </span>
               </p>
               <p className="text-gray-800">
-                Tid: <span className="font-semibold">{formatTime(selectedSchedule?.startTime) ?? "Ukendt tid"}</span>
+                Tid:{" "}
+                <span className="font-semibold">
+                  {formatTime(selectedSchedule?.startTime) ?? "Ukendt tid"}
+                </span>
               </p>
             </div>
             <div className="flex justify-end items-center p-4 mt-4 border-t border-gray-200">
-              <button onClick={handleDelete} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l">
+              <button
+                onClick={handleDelete}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-l"
+              >
                 Ja, slet
               </button>
-              <button onClick={() => setIsModalOpen(false)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-r ml-2"
+              >
                 Nej, gå tilbage
               </button>
             </div>

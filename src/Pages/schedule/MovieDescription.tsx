@@ -1,4 +1,4 @@
-import { MovieType } from "../types";
+import { MovieType } from "../../types/types";
 
 type MovieDescriptionProps = {
   movie: MovieType;

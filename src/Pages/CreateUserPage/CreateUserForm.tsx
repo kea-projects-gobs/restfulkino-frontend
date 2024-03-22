@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import InputField from '../../generic-components/InputField';
-import { createUserWithRole } from './createService';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import InputField from "../../components/InputField";
+import { createUserWithRole } from "./createService";
 
 interface HttpError extends Error {
   response?: {
@@ -12,11 +12,11 @@ interface HttpError extends Error {
 }
 
 export default function CreateUserForm() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   //const [repeatPassword, setRepeatPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleCreateUser = async () => {
@@ -28,18 +28,18 @@ export default function CreateUserForm() {
         //repeatPassword: repeatPassword,
       };
       const response = await createUserWithRole(userData);
-      console.log('Response:', response);
-      navigate('/login');
+      console.log("Response:", response);
+      navigate("/login");
     } catch (error) {
       // Directly use the backend-provided error message
       const errorMessage = (error as HttpError).response?.data?.message;
       if (errorMessage) {
-        console.error('Error creating user:', errorMessage);
+        console.error("Error creating user:", errorMessage);
         setError(errorMessage);
       } else {
         // Handle the unexpected case where the error message is not provided
-        console.error('An unexpected error occurred.');
-        setError('An unexpected error occurred. Please try again.');
+        console.error("An unexpected error occurred.");
+        setError("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -62,19 +62,19 @@ export default function CreateUserForm() {
         label="Email"
         type="email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
       />
       <InputField
         label="Brugernavn"
         type="text"
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={e => setUsername(e.target.value)}
       />
       <InputField
         label="Adgangskode"
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={e => setPassword(e.target.value)}
       />
       {/* <InputField
         label="Repeat Password"
@@ -83,12 +83,18 @@ export default function CreateUserForm() {
         onChange={(e) => setRepeatPassword(e.target.value)}
       /> */}
       {error && <div className="text-red-500 mt-2">{error}</div>}
-      <button onClick={handleCreateUser} className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4">
+      <button
+        onClick={handleCreateUser}
+        className="bg-blue-500 text-white font-bold px-4 py-2 rounded-md mt-4"
+      >
         Opret bruger
       </button>
 
       <div className="mt-2">
-        Har du allerede en bruger? <Link to="/login" className="text-blue-500 font-bold">Log ind her!</Link>
+        Har du allerede en bruger?{" "}
+        <Link to="/login" className="text-blue-500 font-bold">
+          Log ind her!
+        </Link>
       </div>
     </div>
   );

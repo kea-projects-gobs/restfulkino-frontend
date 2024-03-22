@@ -43,6 +43,10 @@ export default function BookingPage() {
       scheduleId: Number(id),
       seatIndexes: selectedSeats,
     };
+    if (selectedSeats.length === 0) {
+      setPrices(null);
+      return;
+    }
     getPrices(reservation).then(data => {
       const sorted = data.tickets.sort(
         (a: TicketPriceType, b: TicketPriceType) => a.seatIndex - b.seatIndex

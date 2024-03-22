@@ -1,8 +1,9 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 export default function BookingConfirmation() {
   const reservationDetails = useLocation().state;
+  const navigate = useNavigate();
   console.log(reservationDetails);
 
   return (
@@ -50,8 +51,11 @@ export default function BookingConfirmation() {
                   ))}
                 </div>
                 <div className="flex justify-center">
-                  <button className="h-10 p-2 w-[200px] text-white bg-blue-700 rounded hover:bg-blue-800 mt-6">
-                    <Link to={"/"}>Gå tilbage til forsiden</Link>
+                  <button
+                    onClick={() => navigate("/")}
+                    className="h-10 p-2 w-[200px] text-white bg-blue-700 rounded hover:bg-blue-800 mt-6"
+                  >
+                    Gå tilbage til forsiden
                   </button>
                 </div>
               </div>

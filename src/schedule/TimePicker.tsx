@@ -37,12 +37,29 @@ function TimeButton({
   handleTimeSelect: (time: string) => void;
   isSelected: boolean;
 }) {
+  const now: Date = new Date();
+  const validateTime = (time: string): boolean => {
+    const [hour, minute] = time.split(":").map(Number);
+    return (
+      now.getHours() < hour ||
+      (now.getHours() === hour && now.getMinutes() < minute)
+    );
+  };
+
+  const className = `p-2 text-white rounded ${
+    isSelected ? "bg-gray-900" : "bg-gray-500"
+  } ${validateTime(time) ? "" : "cursor-not-allowed line-through	"}`;
+
+  const handleTimeSelectWithValidation = (time: string) => {
+    if (validateTime(time)) {
+      handleTimeSelect(time);
+    }
+  };
+
   return (
     <button
-      className={`p-2 text-white rounded ${
-        isSelected ? "bg-gray-900" : "bg-gray-500"
-      }`}
-      onClick={() => handleTimeSelect(time)}
+      className={className}
+      onClick={() => handleTimeSelectWithValidation(time)}
     >
       {time}
     </button>

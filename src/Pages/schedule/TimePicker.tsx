@@ -18,8 +18,9 @@ export default function TimePicker({
           schedules.map((schedule: ScheduleType) => (
             <TimeButton
               key={schedule.id}
-              time={schedule.startTime.substring(0, 5)}
-              handleTimeSelect={() => handleTimeSelect(schedule)}
+              // time={schedule.startTime.substring(0, 5)}
+              schedule={schedule}
+              handleTimeSelect={handleTimeSelect}
               isSelected={selectedTime?.id === schedule.id}
             />
           ))}
@@ -29,39 +30,46 @@ export default function TimePicker({
 }
 
 function TimeButton({
-  time,
+  schedule,
   handleTimeSelect,
   isSelected,
 }: {
-  time: string;
-  handleTimeSelect: (time: string) => void;
+  schedule: ScheduleType;
+  handleTimeSelect: (schedule: ScheduleType) => void;
   isSelected: boolean;
 }) {
-  const now: Date = new Date();
-  const validateTime = (time: string): boolean => {
+  const validateTimeDate = (date: string, time: string): boolean => {
+    const now: Date = new Date();
+    console.log("now", now);
+
+    const [year, month, day] = date.split("-").map(Number);
     const [hour, minute] = time.split(":").map(Number);
-    return (
-      now.getHours() < hour ||
-      (now.getHours() === hour && now.getMinutes() < minute)
-    );
+
+    const currentDate = new Date(year, month - 1, day, hour, minute);
+
+    return now < currentDate;
   };
 
   const className = `p-2 text-white rounded ${
     isSelected ? "bg-gray-900" : "bg-gray-500"
-  } ${validateTime(time) ? "" : "cursor-not-allowed line-through	"}`;
+  } ${
+    validateTimeDate(schedule.date, schedule.startTime.substring(0, 5))
+      ? ""
+      : "cursor-not-allowed line-through	"
+  }`;
 
-  const handleTimeSelectWithValidation = (time: string) => {
-    if (validateTime(time)) {
-      handleTimeSelect(time);
+  const handleTimeSelectWithValidation = (schedule: ScheduleType) => {
+    if (validateTimeDate(schedule.date, schedule.startTime.substring(0, 5))) {
+      handleTimeSelect(schedule);
     }
   };
 
   return (
     <button
       className={className}
-      onClick={() => handleTimeSelectWithValidation(time)}
+      onClick={() => handleTimeSelectWithValidation(schedule)}
     >
-      {time}
+      {schedule.startTime.substring(0, 5)}
     </button>
   );
 }

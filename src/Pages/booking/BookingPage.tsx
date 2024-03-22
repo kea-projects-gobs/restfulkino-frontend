@@ -8,7 +8,7 @@ import {
   PriceType,
   ScheduleType,
   TicketPriceType,
-} from "../../types";
+} from "../../types/types";
 import {
   createReservation,
   getHallByNameAndCinemaName,

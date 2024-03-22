@@ -1,4 +1,4 @@
-import { PriceType } from "../../types";
+import { PriceType } from "../../types/types";
 
 type BookingPriceProps = {
   reservationDetails: PriceType | null;

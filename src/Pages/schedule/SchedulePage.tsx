@@ -3,13 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import DatePicker from "./DatePicker";
 import TimePicker from "./TimePicker";
-import { CinemaType, MovieType, ScheduleType } from "../types";
+import { CinemaType, MovieType, ScheduleType } from "../../types/types";
 import MovieDescription from "./MovieDescription";
 import {
   getCinemas,
   getMoviesById,
   getSchedulesByDateAndMovieIdAndCinemaId,
-} from "../services/api";
+} from "../../services/api";
 
 export default function SchedulePage() {
   const navigate = useNavigate();

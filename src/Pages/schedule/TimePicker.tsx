@@ -1,4 +1,4 @@
-import { ScheduleType } from "../types";
+import { ScheduleType } from "../../types/types";
 
 type TimePickerProps = {
   handleTimeSelect: (schedule: ScheduleType) => void;

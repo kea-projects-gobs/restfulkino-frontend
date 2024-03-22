@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DropDownItem from "./DropDownItem";
-import { CinemaType } from "../types";
+import { CinemaType } from "../../types/types";
 
 type DropDownMenuProps = {
   cinemas: CinemaType[];

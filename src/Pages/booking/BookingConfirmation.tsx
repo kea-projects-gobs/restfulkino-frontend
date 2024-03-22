@@ -40,9 +40,9 @@ export default function BookingConfirmation() {
               <div className="pt-4">
                 <h2 className="pb-2 text-xl font-bold text-center">Sæder</h2>
                 <div className="flex flex-wrap justify-center gap-1 max-w-[250px] mx-auto">
-                  {reservationDetails.seatDetails.map((seat: string[]) => (
+                  {reservationDetails.seatDetails.map((seat: string) => (
                     <span
-                      //   key={seat}
+                      key={seat}
                       className="w-10 p-1 text-center text-white bg-gray-900 rounded"
                     >
                       {" "}

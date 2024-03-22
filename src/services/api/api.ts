@@ -1,9 +1,9 @@
-import { API_URL } from "../settings";
+import { API_URL } from "../../settings";
 import axios from "axios";
-import axiosWithAuth from "../security/axios";
-import { CreateReservationType, MovieType } from "../types/types";
-import { Schedule } from "../interfaces/interfaces";
-import { handleHttpErrors } from "./fetchUtils";
+import axiosWithAuth from "../../security/axios";
+import { CreateReservationType, MovieType } from "../../types/types";
+import { Schedule } from "../../interfaces/interfaces";
+import { handleHttpErrors } from "../fetchUtils";
 
 export async function getMoviesById(id: number): Promise<MovieType> {
   return await fetch(`${API_URL}/movies/${id}`).then(handleHttpErrors);

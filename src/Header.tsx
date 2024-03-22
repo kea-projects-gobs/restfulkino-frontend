@@ -7,39 +7,40 @@ export const Header = () => {
   const auth = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const closeMenu = () => setIsMenuOpen(false);
   return (
     <header className="relative text-white bg-gray-900 rounded-lg shadow-lg">
       <div className="container flex items-center justify-between px-6 py-6 mx-auto">
         <h1 className={`${isMenuOpen ? "hidden" : "block"} md:block text-4xl`}>
-          <NavLink to="/" className="hover:text-gray-300">
+          <NavLink to="/" className="hover:text-gray-300" onClick={closeMenu}>
             KINO
           </NavLink>
         </h1>
         <nav className={`${isMenuOpen ? "block" : "hidden"} md:block`}>
           <ul className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-6">
             <li>
-              <NavLink to="/" className="hover:text-gray-300">
+              <NavLink to="/" className="hover:text-gray-300" onClick={closeMenu}>
                 Program
               </NavLink>
             </li>
             <li>
-              <NavLink to="/comingsoon" className="hover:text-gray-300">
+              <NavLink to="/comingsoon" className="hover:text-gray-300" onClick={closeMenu}>
                 Kommende film
               </NavLink>
             </li>
             <li>
-              <NavLink to="/about" className="hover:text-gray-300">
+              <NavLink to="/about" className="hover:text-gray-300" onClick={closeMenu}>
                 Om os
               </NavLink>
             </li>
             {auth?.isLoggedInAs(["ADMIN", "EMPLOYEE"]) && (
               <li>
-                <NavLink to="/admin" className="hover:text-gray-300">
+                <NavLink to="/admin" className="hover:text-gray-300" onClick={closeMenu}>
                   Admin
                 </NavLink>
               </li>
             )}
-            <AuthStatus />
+            <AuthStatus closeMenu={closeMenu} />
           </ul>
         </nav>
         <button

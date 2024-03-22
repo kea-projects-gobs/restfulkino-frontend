@@ -5,7 +5,7 @@ import {
   createCinema,
   updateCinema,
   deleteCinema,
-} from "../cinema/CinemaUtils";
+} from "../../services/api/CinemaUtils";
 import { Cinema } from "../../interfaces/interfaces";
 import Modal from "../../components/Modal";
 import InputField from "../../components/InputField";

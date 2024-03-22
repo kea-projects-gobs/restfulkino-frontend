@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getCinemas } from '../cinema/CinemaUtils';
+import { getCinemas } from '../../services/api/CinemaUtils';
 import { Cinema } from '../../interfaces/interfaces';
 
 export default function AboutPage() {

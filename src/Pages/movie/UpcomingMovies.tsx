@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../../interfaces/interfaces";
-import { getMovies } from "./MovieUtils";
+import { getMovies } from "../../services/api/MovieUtils";
 import { useNavigate } from "react-router-dom";
 
 function UpcomingMovies() {

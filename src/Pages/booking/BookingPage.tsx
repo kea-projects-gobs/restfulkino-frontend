@@ -15,7 +15,7 @@ import {
   getPrices,
   getReservedSeatsByScheduleId,
   getSchedulesById,
-} from "../../services/api";
+} from "../../services/api/api";
 import BookingPrice from "./BookingPrice";
 
 export default function BookingPage() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getHalls, createHall, updateHall, deleteHall } from "./HallUtils";
-import { getCinemas } from "../cinema/CinemaUtils";
+import { getHalls, createHall, updateHall, deleteHall } from "../../services/api/HallUtils";
+import { getCinemas } from "../../services/api/CinemaUtils";
 import { Hall, Cinema } from "../../interfaces/interfaces";
 import Modal from "../../components/Modal";
 import InputField from "../../components/InputField";

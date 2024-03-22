@@ -8,7 +8,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-slate-400 text-white rounded-lg shadow-lg relative">
+    <header className="bg-slate-900 text-white rounded-lg shadow-lg relative">
       <div className="container mx-auto py-6 px-6 flex justify-between items-center">
         <h1 className="text-4xl">Restful Kino</h1>
         <nav className={`${isMenuOpen ? 'block' : 'hidden'} md:block`}>

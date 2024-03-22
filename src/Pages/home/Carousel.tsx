@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { getMovies } from "../movie/MovieUtils";
-import { Movie } from "../../interfaces/interfaces";
+import { getSchedule } from "../../services/api";
+import { Movie, Schedule } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router";
 
 function Carousel() {
@@ -11,11 +12,14 @@ function Carousel() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await getMovies();
-      setSlides(response.data);
+    const fetchMoviesAndSchedules = async () => {
+      const movieResponse = await getMovies();
+      const scheduleResponse = await getSchedule();
+      const scheduledMovieTitles = new Set(scheduleResponse.data.map((schedule: Schedule) => schedule.movieTitle));
+      const moviesWithSchedules = movieResponse.data.filter((movie: Movie) => scheduledMovieTitles.has(movie.title));
+      setSlides(moviesWithSchedules);
     };
-    fetchMovies();
+    fetchMoviesAndSchedules();
   }, []);
 
   const prevSlide = () => {
@@ -35,7 +39,7 @@ function Carousel() {
   };
 
   return (
-    <div className="max-w-full h-[600px] w-full m-auto relative group px-6">
+    <div className="max-w-full h-[600px] w-full m-auto relative group">
       {slides.map((movie, index) => {
         return (
           <div

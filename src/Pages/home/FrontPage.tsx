@@ -16,7 +16,7 @@ export default function TestFrontpage() {
   return (
     <div className="relative">
       <h1 className="text-4xl font-bold text-center my-8">
-        Velkommen til Restful Kino!
+        Velkommen til Kino
       </h1>
       <div>
         <Carousel />

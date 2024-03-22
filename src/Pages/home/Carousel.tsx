@@ -43,12 +43,12 @@ function Carousel() {
   };
 
   return (
-    <div className="max-w-full h-[600px] w-full m-auto relative group">
+    <div className="h-[600px] w-[400px] m-auto relative group">
       {slides.map((movie, index) => {
         return (
           <div
             key={movie.id}
-            className={`w-full h-full rounded-md bg-center bg-contain duration-500 ${
+            className={`h-full rounded-md bg-center bg-contain duration-500 ${
               currentIndex === index ? "block" : "hidden"
             }`}
             style={{ backgroundImage: `url(${movie.imageUrl})` }}

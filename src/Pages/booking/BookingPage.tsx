@@ -51,7 +51,7 @@ export default function BookingPage() {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    getPrices(reservation).then(data => {
+    getPrices(reservation, signal).then(data => {
       if (!signal.aborted) {
         const sorted = data.tickets.sort(
           (a: TicketPriceType, b: TicketPriceType) => a.seatIndex - b.seatIndex

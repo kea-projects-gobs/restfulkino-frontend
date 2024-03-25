@@ -9,6 +9,7 @@ import {
   ScheduleType,
   TicketPriceType,
 } from "../../types/types";
+import BookingPrice from "./BookingPrice";
 import {
   createReservation,
   getHallByNameAndCinemaName,
@@ -16,7 +17,6 @@ import {
   getReservedSeatsByScheduleId,
   getSchedulesById,
 } from "../../services/api/api";
-import BookingPrice from "./BookingPrice";
 
 export default function BookingPage() {
   const { id } = useParams();
@@ -47,13 +47,24 @@ export default function BookingPage() {
       setPrices(null);
       return;
     }
-    getPrices(reservation).then(data => {
-      const sorted = data.tickets.sort(
-        (a: TicketPriceType, b: TicketPriceType) => a.seatIndex - b.seatIndex
-      );
-      data.tickets = sorted;
-      setPrices(data);
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    getPrices(reservation, signal).then(data => {
+      if (!signal.aborted) {
+        const sorted = data.tickets.sort(
+          (a: TicketPriceType, b: TicketPriceType) => a.seatIndex - b.seatIndex
+        );
+        data.tickets = sorted;
+        setPrices(data);
+      } else {
+        console.log("Request aborted");
+      }
     });
+    return () => {
+      controller.abort(); // Abort the request when the component unmounts
+    };
   }, [selectedSeats, id]);
 
   useEffect(() => {

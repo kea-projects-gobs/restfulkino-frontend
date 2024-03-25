@@ -62,12 +62,23 @@ export async function createReservation(reservation: CreateReservationType) {
   return await axiosWithAuth.post(`${API_URL}/reservations`, reservation);
 }
 
-export async function getPrices(reservation: CreateReservationType) {
-  return await fetch(`${API_URL}/reservations/prices`, {
+export async function getPrices(
+  reservation: CreateReservationType,
+  signal: AbortSignal | null = null
+) {
+  const options: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(reservation),
-  }).then(handleHttpErrors);
+  };
+
+  if (signal) {
+    options.signal = signal;
+  }
+
+  return fetch(`${API_URL}/reservations/prices`, options).then(
+    handleHttpErrors
+  );
 }

@@ -71,3 +71,24 @@ export async function getPrices(reservation: CreateReservationType) {
     body: JSON.stringify(reservation),
   }).then(handleHttpErrors);
 }
+
+// export async function getPrices(
+//   reservation: CreateReservationType,
+//   signal: AbortSignal | null = null
+// ) {
+//   const options: RequestInit = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(reservation),
+//   };
+
+//   if (signal) {
+//     options.signal = signal;
+//   }
+
+//   return fetch(`${API_URL}/reservations/prices`, options).then(
+//     handleHttpErrors
+//   );
+// }

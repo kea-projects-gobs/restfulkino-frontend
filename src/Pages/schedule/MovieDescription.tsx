@@ -1,7 +1,7 @@
 import { MovieType } from "../../types/types";
 
 type MovieDescriptionProps = {
-  movie: MovieType;
+  movie: MovieType | undefined;
 };
 
 export default function MovieDescription({ movie }: MovieDescriptionProps) {
@@ -13,7 +13,7 @@ export default function MovieDescription({ movie }: MovieDescriptionProps) {
         <h1 className="text-xl font-bold">{movie?.title}</h1>
         <p className="text-sm opacity-65">{movie?.releaseDate}</p>
         <span className="text-sm opacity-65">{movie?.duration} minutter</span>
-        {movie.genre != null && (
+        {movie?.genre != null && (
           <span className="text-sm opacity-65"> - {movie.genre}</span>
         )}
         <p className="text-sm opacity-65">{movie?.cast}</p>

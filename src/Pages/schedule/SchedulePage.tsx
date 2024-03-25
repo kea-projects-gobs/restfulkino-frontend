@@ -10,6 +10,7 @@ import {
   getMoviesById,
   getSchedulesByDateAndMovieIdAndCinemaId,
 } from "../../services/api/api";
+import MovieDescriptionSkeleton from "./MovieDescriptionSkeleton";
 
 export default function SchedulePage() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function SchedulePage() {
   const [schedules2d, setSchedules2d] = useState([]);
   const [schedules3d, setSchedules3d] = useState([]);
   const [selectedTime, setSelectedTime] = useState<ScheduleType | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleCinemaSelect = (cinema: CinemaType) => {
     setSelectedCinema(cinema);
@@ -38,7 +40,10 @@ export default function SchedulePage() {
   };
 
   useEffect(() => {
-    getMoviesById(Number(id)).then(data => setMovie(data));
+    getMoviesById(Number(id)).then(data => {
+      setMovie(data);
+      setLoading(false);
+    });
   }, [id]);
 
   useEffect(() => {
@@ -66,7 +71,11 @@ export default function SchedulePage() {
 
   return (
     <>
-      {movie?.title && <MovieDescription movie={movie} />}
+      {loading ? (
+        <MovieDescriptionSkeleton />
+      ) : (
+        <MovieDescription movie={movie} />
+      )}
       <div className="max-w-[600px] mx-auto mt-2 flex flex-col justify-center bg-gray-100 p-10 rounded">
         <div className="mx-auto">
           <DropDownMenu

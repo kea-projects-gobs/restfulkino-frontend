@@ -42,7 +42,11 @@ export default function SchedulePage() {
   useEffect(() => {
     getMoviesById(Number(id)).then(data => {
       setMovie(data);
-      setLoading(false);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 400);
+
+      return () => clearTimeout(timer);
     });
   }, [id]);
 

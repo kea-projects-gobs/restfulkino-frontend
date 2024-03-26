@@ -63,7 +63,12 @@ export default function BookingPage() {
         );
         data.tickets = sorted;
         setPrices(data);
-        setLoadingPrices(false);
+        const timer = setTimeout(() => {
+          setLoadingPrices(false);
+        }, 400);
+
+        return () => clearTimeout(timer);
+        // setLoadingPrices(false);
       } else {
         console.log("Request aborted");
       }
@@ -159,12 +164,14 @@ export default function BookingPage() {
             </div>
           </div> */}
           <div className="mx-auto mt-6">
-            <button
-              className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
-              onClick={handleReservationSubmit}
-            >
-              Reserver sæder
-            </button>
+            {!loadingSeats && (
+              <button
+                className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
+                onClick={handleReservationSubmit}
+              >
+                Reserver sæder
+              </button>
+            )}
           </div>
         </div>
         <div className="w-[360px]">

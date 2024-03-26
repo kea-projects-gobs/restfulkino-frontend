@@ -19,6 +19,7 @@ import {
 } from "../../services/api/api";
 import BookingPriceSkeleton from "./BookingPriceSkeleton";
 import SeatGridSkeleton from "./SeatGridSkeleton";
+import { FaSpinner } from "react-icons/fa";
 
 export default function BookingPage() {
   const { id } = useParams();
@@ -31,6 +32,7 @@ export default function BookingPage() {
   const [prices, setPrices] = useState<PriceType | null>(null);
   const [loadingPrices, setLoadingPrices] = useState<boolean>(false);
   const [loadingSeats, setLoadingSeats] = useState<boolean>(true);
+  const [loadingReservation, setLoadingReservation] = useState<boolean>(false);
 
   const handleSeatSelect = (seatIndex: number): void => {
     setSelectedSeats(prevSelectedSeats => {
@@ -114,6 +116,7 @@ export default function BookingPage() {
       seatIndexes: selectedSeats,
     };
     console.log(reservation);
+    setLoadingReservation(true);
     createReservation(reservation)
       .then(() => {
         const seatDetails = selectedSeats.map(seatIndex => {
@@ -166,10 +169,19 @@ export default function BookingPage() {
           <div className="mx-auto mt-6">
             {!loadingSeats && (
               <button
-                className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
+                className={`h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800 ${
+                  loadingReservation && "cursor-not-allowed opacity-50"
+                }`}
                 onClick={handleReservationSubmit}
               >
-                Reserver sæder
+                {loadingReservation ? (
+                  <span className="flex items-center justify-center">
+                    <FaSpinner className="mr-2 animate-spin" />
+                    <p>Reserver sæder</p>
+                  </span>
+                ) : (
+                  "Reserver sæder"
+                )}
               </button>
             )}
           </div>

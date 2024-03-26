@@ -17,6 +17,9 @@ import {
   getReservedSeatsByScheduleId,
   getSchedulesById,
 } from "../../services/api/api";
+import BookingPriceSkeleton from "./BookingPriceSkeleton";
+import SeatGridSkeleton from "./SeatGridSkeleton";
+import { FaSpinner } from "react-icons/fa";
 
 export default function BookingPage() {
   const { id } = useParams();
@@ -27,6 +30,9 @@ export default function BookingPage() {
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const [occupiedSeats, setOccupiedSeats] = useState<number[]>([]);
   const [prices, setPrices] = useState<PriceType | null>(null);
+  const [loadingPrices, setLoadingPrices] = useState<boolean>(false);
+  const [loadingSeats, setLoadingSeats] = useState<boolean>(true);
+  const [loadingReservation, setLoadingReservation] = useState<boolean>(false);
 
   const handleSeatSelect = (seatIndex: number): void => {
     setSelectedSeats(prevSelectedSeats => {
@@ -47,6 +53,7 @@ export default function BookingPage() {
       setPrices(null);
       return;
     }
+    setLoadingPrices(true);
 
     const controller = new AbortController();
     const signal = controller.signal;
@@ -58,6 +65,12 @@ export default function BookingPage() {
         );
         data.tickets = sorted;
         setPrices(data);
+        const timer = setTimeout(() => {
+          setLoadingPrices(false);
+        }, 400);
+
+        return () => clearTimeout(timer);
+        // setLoadingPrices(false);
       } else {
         console.log("Request aborted");
       }
@@ -87,6 +100,7 @@ export default function BookingPage() {
       setOccupiedSeats(
         data.map((seat: { seatIndex: number }) => seat.seatIndex)
       );
+      setLoadingSeats(false);
     });
   }, [id]);
 
@@ -102,6 +116,7 @@ export default function BookingPage() {
       seatIndexes: selectedSeats,
     };
     console.log(reservation);
+    setLoadingReservation(true);
     createReservation(reservation)
       .then(() => {
         const seatDetails = selectedSeats.map(seatIndex => {
@@ -124,13 +139,18 @@ export default function BookingPage() {
           <div className="mx-auto">
             <CanvasLogo isLarge={columns > 12} />
           </div>
-          <SeatGrid
-            rows={rows}
-            columns={columns}
-            handleSeatSelect={handleSeatSelect}
-            selectedSeats={selectedSeats}
-            occupiedSeats={occupiedSeats}
-          />
+          {loadingSeats ? (
+            <SeatGridSkeleton />
+          ) : (
+            <SeatGrid
+              rows={rows}
+              columns={columns}
+              handleSeatSelect={handleSeatSelect}
+              selectedSeats={selectedSeats}
+              occupiedSeats={occupiedSeats}
+            />
+          )}
+
           <BookingLegend />
           {/* <div className="pt-4">
             <h2 className="text-center">Valgte Sæder</h2>
@@ -147,19 +167,34 @@ export default function BookingPage() {
             </div>
           </div> */}
           <div className="mx-auto mt-6">
-            <button
-              className="h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800"
-              onClick={handleReservationSubmit}
-            >
-              Reserver sæder
-            </button>
+            {!loadingSeats && (
+              <button
+                className={`h-10 w-[336px] p-2 text-white bg-blue-700 rounded hover:bg-blue-800 ${
+                  loadingReservation && "cursor-not-allowed opacity-50"
+                }`}
+                onClick={handleReservationSubmit}
+              >
+                {loadingReservation ? (
+                  <span className="flex items-center justify-center">
+                    <FaSpinner className="mr-2 animate-spin" />
+                    <p>Reserver sæder</p>
+                  </span>
+                ) : (
+                  "Reserver sæder"
+                )}
+              </button>
+            )}
           </div>
         </div>
         <div className="w-[360px]">
-          <BookingPrice
-            reservationDetails={prices}
-            getSeatDisplayName={getSeatDisplayName}
-          />
+          {loadingPrices ? (
+            <BookingPriceSkeleton />
+          ) : (
+            <BookingPrice
+              reservationDetails={prices}
+              getSeatDisplayName={getSeatDisplayName}
+            />
+          )}
         </div>
       </div>
     </>

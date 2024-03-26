@@ -5,13 +5,16 @@ import { getMovies } from "../../services/api/MovieUtils";
 import { getSchedule } from "../../services/api/api";
 import { Movie, Schedule } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router";
+import CarouselSkeleton from "./CarouselSkeleton";
 
 function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slides, setSlides] = useState<Movie[]>([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchMoviesAndSchedules = async () => {
       const movieResponse = await getMovies();
       const scheduleResponse = await getSchedule();
@@ -22,6 +25,7 @@ function Carousel() {
         scheduledMovieTitles.has(movie.title)
       );
       setSlides(moviesWithSchedules);
+      setLoading(false);
     };
     fetchMoviesAndSchedules();
   }, []);
@@ -43,39 +47,47 @@ function Carousel() {
   };
 
   return (
-    <div className="h-[600px] w-full sm:w-[400px] m-auto relative group">
-      {slides.map((movie, index) => {
-        return (
-          <div
-            key={movie.id}
-            className={`h-full rounded-md bg-center bg-cover duration-500 ${
-              currentIndex === index ? "block" : "hidden"
-            }`}
-            style={{ backgroundImage: `url(${movie.imageUrl})` }}
-            onClick={() => navigate(`schedules/movies/${movie.id}`)}
-          ></div>
-        );
-      })}
-      <div className="flex absolute top-1/2 -translate-y-1/2 left-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer md:opacity-0 group-hover:opacity-100 transition-opacity">
-        <BsChevronCompactLeft onClick={prevSlide} size={30} />
-      </div>
-      <div className="flex absolute top-1/2 -translate-y-1/2 right-4 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer md:opacity-0 group-hover:opacity-100 transition-opacity">
-        <BsChevronCompactRight onClick={nextSlide} size={30} />
-      </div>
-      <div className="flex justify-center py-2">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            className={`mx-1 text-lg md:text-2xl cursor-pointer ${
-              currentIndex === index ? "text-white" : "text-gray-400"
-            }`}
-            onClick={() => goToSlide(index)}
-          >
-            <RxDotFilled />
+    <>
+      {loading ? (
+        <CarouselSkeleton />
+      ) : (
+        <div className="">
+          <div className="relative flex flex-col justify-center mx-auto w-[200px] m-auto group">
+            {slides.map((movie, index) => {
+              return (
+                <div
+                  key={movie.id}
+                  className={`hover:cursor-pointer h-[300px] w-[200px] rounded-md bg-center bg-cover duration-500 ${
+                    currentIndex === index ? "block" : "hidden"
+                  }`}
+                  style={{ backgroundImage: `url(${movie.imageUrl})` }}
+                  onClick={() => navigate(`schedules/movies/${movie.id}`)}
+                ></div>
+              );
+            })}
+            <div className="absolute flex p-2 text-2xl text-white transition-opacity -translate-y-1/2 rounded-full cursor-pointer top-1/2 left-4 bg-black/20 md:opacity-0 group-hover:opacity-100">
+              <BsChevronCompactLeft onClick={prevSlide} size={30} />
+            </div>
+            <div className="absolute flex p-2 text-2xl text-white transition-opacity -translate-y-1/2 rounded-full cursor-pointer top-1/2 right-4 bg-black/20 md:opacity-0 group-hover:opacity-100">
+              <BsChevronCompactRight onClick={nextSlide} size={30} />
+            </div>
+            <div className="flex justify-center py-2">
+              {slides.map((_, index) => (
+                <div
+                  key={index}
+                  className={`mx-1 text-lg md:text-2xl cursor-pointer ${
+                    currentIndex === index ? "text-gray-300" : "text-gray-600"
+                  }`}
+                  onClick={() => goToSlide(index)}
+                >
+                  <RxDotFilled />
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 
